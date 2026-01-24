@@ -9,22 +9,29 @@ var browser = {
   extension:  require('../browser/extension.js'),
 
   addPageAction: function(tabId) {
-    var detectionMode = this.storage.get('urlDetection'),
-        iconState     = (detectionMode !== 'noUrls') ? 'enabled' : 'disabled';
+    var self = this;
 
-    this.pageAction.show(tabId);
-    this.pageAction.setIcon(iconState);
+    this.storage.get('urlDetection', function(detectionMode) {
+      var mode = detectionMode || 'allUrls',
+          iconState = (mode !== 'noUrls') ? 'enabled' : 'disabled';
+
+      self.pageAction.show(tabId);
+      self.pageAction.setIcon(iconState);
+    });
   },
 
   didNavigate: function(navDetails) {
-    var tabDetails       = { id: navDetails.tabId, url: navDetails.url },
-        detectionMode    = this.storage.get('urlDetection'),
-        zdUrlMatches     = urlMatch.extractMatches(navDetails.url, detectionMode);
+    var tabDetails = { id: navDetails.tabId, url: navDetails.url };
 
-    if ((detectionMode !== 'noUrls') && zdUrlMatches) {
-      tabDetails.routeDetails = zdUrlMatches;
-      browser.openRouteInZendesk(tabDetails);
-    }
+    this.storage.get('urlDetection', function(detectionMode) {
+      var mode = detectionMode || 'allUrls',
+          zdUrlMatches = urlMatch.extractMatches(navDetails.url, mode);
+
+      if ((mode !== 'noUrls') && zdUrlMatches) {
+        tabDetails.routeDetails = zdUrlMatches;
+        browser.openRouteInZendesk(tabDetails);
+      }
+    });
   },
 
   didInstall: function(details) {
@@ -69,10 +76,12 @@ var browser = {
   },
 
   updateLotusRoute: function(lotusTabId, route) {
-    var message       = { "target": "route", "memo": { "hash": route } },
-        codeToExecute = "window.postMessage('" + JSON.stringify(message) + "', '*')";
+    var message = { "target": "route", "memo": { "hash": route } },
+        serializedMessage = JSON.stringify(message);
 
-    this.tabs.executeScript(lotusTabId, codeToExecute);
+    this.tabs.executeScript(lotusTabId, function(payload) {
+      window.postMessage(payload, '*');
+    }, [serializedMessage]);
   },
 
   openWelcome: function() {

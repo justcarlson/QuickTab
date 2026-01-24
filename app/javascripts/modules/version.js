@@ -9,23 +9,34 @@ var version = {
     browser.storage.set('currentversion', this.CURRENT);
   },
 
-  hasUpdated: function() {
-    var storedVersion = browser.storage.get('currentversion');
+  hasUpdated: function(callback) {
+    var self = this;
 
-    return (this.current < storedVersion) ? true : false;
+    browser.storage.get('currentversion', function(storedVersion) {
+      var hasUpdated = (self.CURRENT < storedVersion) ? true : false;
+
+      if (callback) {
+        callback(hasUpdated);
+      }
+    });
   },
 
   check: function() {
-    var storedVersion = browser.storage.get('currentversion');
+    var self = this;
 
-    if (!storedVersion) {
-      this.panic();
-    }
+    browser.storage.get('currentversion', function(storedVersion) {
+      if (!storedVersion) {
+        self.panic();
+      }
+    });
   },
 
   panic: function() {
-    browser.storage.drop();
-    this.set();
+    var self = this;
+
+    browser.storage.drop(function() {
+      self.set();
+    });
   }
 
 };

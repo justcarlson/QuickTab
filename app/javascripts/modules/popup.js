@@ -4,11 +4,15 @@ var templates = require('./templates.js'),
 var popup = {
 
   init: function() {
-    var self         = this,
-        disabledFor  = browser.storage.get('disabledFor');
+    var self = this;
 
-    templates.show('popup', { disabledDuration: disabledFor }, $("body"));
-    this.bindings();
+    browser.storage.get('disabledFor', function(disabledFor) {
+      browser.storage.get('urlDetection', function(urlDetection) {
+        templates.setSetting('urlDetection', urlDetection || 'allUrls');
+        templates.show('popup', { disabledDuration: disabledFor }, $("body"));
+        self.bindings();
+      });
+    });
   },
 
   bindings: function() {

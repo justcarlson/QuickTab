@@ -1,6 +1,6 @@
 var pageAction = {
   show: function(tabId) {
-    chrome.pageAction.show(tabId);
+    chrome.action.enable(tabId);
   },
 
   setIcon: function(option) {
@@ -8,7 +8,7 @@ var pageAction = {
 
     chrome.tabs.query({ url: '*://*.zendesk.com/agent/*' }, function(openTabs) {
       openTabs.forEach(function(tab) {
-        chrome.pageAction.setIcon({ tabId: tab.id, path: icon });
+        chrome.action.setIcon({ tabId: tab.id, path: icon });
       });
     });
   }

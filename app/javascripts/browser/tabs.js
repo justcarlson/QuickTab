@@ -19,8 +19,12 @@ var tabs = {
     chrome.tabs.query({ url: pattern }, callback);
   },
 
-  executeScript: function(tabId, script) {
-    chrome.tabs.executeScript(tabId, { code: script });
+  executeScript: function(tabId, func, args) {
+    chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: func,
+      args: args || []
+    });
   }
 
 };

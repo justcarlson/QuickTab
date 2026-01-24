@@ -131,8 +131,9 @@ module.exports = function(grunt) {
     sass: {
       build: {
         options: {
-          style: 'expanded',
-          sourcemap: 'none'
+          implementation: require('sass'),
+          outputStyle: 'expanded',
+          sourceMap: false
         },
         files: [{
           expand: true,
@@ -144,8 +145,9 @@ module.exports = function(grunt) {
       },
       release: {
         options: {
-          style: 'compressed',
-          sourcemap: 'none'
+          implementation: require('sass'),
+          outputStyle: 'compressed',
+          sourceMap: false
         },
         files: [{
           expand: true,
@@ -267,4 +269,3 @@ module.exports = function(grunt) {
     'watch'
   ]);
 };
-
