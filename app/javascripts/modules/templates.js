@@ -1,8 +1,14 @@
 var browser = require('./browser.js');
 
 var templates = {
+  settings: {},
+
   init: function() {
     this._registerHandlebarsHelpers();
+  },
+
+  setSetting: function(settingName, settingValue) {
+    this.settings[settingName] = settingValue;
   },
 
   render: function(template, context) {
@@ -29,7 +35,7 @@ var templates = {
     // ifSettingEnabled Helper
     Handlebars.registerHelper('enabledSetting', function(settingName, expectedSettingValue) {
       var settingEnabled = '',
-          settingValue   = browser.storage.get(settingName);
+          settingValue   = templates.settings[settingName];
 
       if (expectedSettingValue == settingValue) {
         settingEnabled = 'enabled';

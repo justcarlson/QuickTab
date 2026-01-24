@@ -1,24 +1,49 @@
 var storage = {
-  get: function(key) {
-    return localStorage.getItem(key);
+  get: function(key, callback) {
+    chrome.storage.local.get([key], function(result) {
+      if (callback) {
+        callback(result[key]);
+      }
+    });
   },
 
-  set: function(key, value) {
+  set: function(key, value, callback) {
     if (value) {
-      localStorage.setItem(key, value);
+      var payload = {};
+      payload[key] = value;
+
+      chrome.storage.local.set(payload, function() {
+        if (callback) {
+          callback();
+        }
+      });
     } else {
-      localStorage.removeItem(key);
+      chrome.storage.local.remove([key], function() {
+        if (callback) {
+          callback();
+        }
+      });
     }
   },
 
-  drop: function() {
-    localStorage.clear();
+  drop: function(callback) {
+    chrome.storage.local.clear(function() {
+      if (callback) {
+        callback();
+      }
+    });
   },
 
-  sanitize: function() {
-    if (!this.get('urlDetection')) {
-      this.set('urlDetection', 'allUrls');
-    }
+  sanitize: function(callback) {
+    var self = this;
+
+    self.get('urlDetection', function(value) {
+      if (!value) {
+        self.set('urlDetection', 'allUrls', callback);
+      } else if (callback) {
+        callback();
+      }
+    });
   }
 };
 
