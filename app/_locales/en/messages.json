@@ -5,7 +5,7 @@
   },
 
   "txt_popup_title_link_detection": {
-    "message": "Link detection settings",
+    "message": "Link handling",
     "description": ""
   },
 
@@ -15,32 +15,32 @@
   },
 
   "txt_popup_options_link_detection_ticketLinks": {
-    "message": "Just ticket links",
+    "message": "Ticket links only",
     "description": ""
   },
 
   "txt_popup_options_link_detection_noLinks": {
-    "message": "No links (disabled)",
+    "message": "Off (disabled)",
     "description": ""
   },
 
   "txt_popup_title_help": {
-    "message": "Need some help?",
+    "message": "Help & info",
     "description": ""
   },
 
   "txt_popup_options_help_documentation": {
-    "message": "Read the documentation",
+    "message": "Open README",
     "description": ""
   },
 
   "txt_popup_options_help_welcome": {
-    "message": "See welcome screen again",
+    "message": "Open welcome screen",
     "description": ""
   },
 
   "txt_popup_options_help_feedback": {
-    "message": "Give beta feedback",
+    "message": "Install locally",
     "description": ""
   },
 
@@ -50,57 +50,57 @@
   },
 
   "txt_welcome_header_main": {
-    "message": "Well behaved browser tabs for Zendesk agents",
+    "message": "Keep Zendesk in one calm tab",
     "description": ""
   },
 
   "txt_welcome_header_hook": {
-    "message": "Click a Zendesk agent link from anywhere, and this handy little extension will hunt for any already open Zendesk tabs, opening the link their instead",
+    "message": "Open any Zendesk /agent link and QuickTab routes it to the agent tab you already have open.",
     "description": ""
   },
 
   "txt_welcome_header_what_do": {
-    "message": "What does this do again?",
+    "message": "What does QuickTab do?",
     "description": ""
   },
 
   "txt_welcome_body_what_do": {
-    "message": "So you have a browser tab with the Zendesk agent interface already opened. When you click a link - a ticket or user link for example - this extension will ensure the link is opened in that same browser tab.",
+    "message": "If a Zendesk agent tab is already open, new agent links reuse it instead of opening another tab.",
     "description": ""
   },
 
   "txt_welcome_header_new_browser_tab": {
-    "message": "Can I still open links in a new browser tab?",
+    "message": "Can I open a new tab anyway?",
     "description": ""
   },
 
   "txt_welcome_body_new_browser_tab": {
-    "message": "You can disable the extension temporarily. Just go to your agent interface, and in your URL bar you should see an icon that looks like <img src='./images/icons/icon38-enabled.png' /> or <img src='./images/icons/icon38-disabled.png' />",
+    "message": "Yes. Toggle QuickTab off from the toolbar icon, then open links normally.",
     "description": ""
   },
 
   "txt_welcome_header_lose_work": {
-    "message": "Would that cause me to lose work?",
+    "message": "Will I lose work?",
     "description": ""
   },
 
   "txt_welcome_body_lose_work": {
-    "message": "No. The extension talks directly to the interface, telling it where you would like to navigate. The interface will keep all your work safe.",
+    "message": "No. QuickTab routes navigation inside the agent tab so drafts stay intact.",
     "description": ""
   },
 
   "txt_welcome_header_what_links": {
-    "message": "What links does this work for?",
+    "message": "Which links are covered?",
     "description": ""
   },
 
   "txt_welcome_body_what_links": {
-    "message": "Any agent link, which is any link with /agent after the domain. Tickets, users, views and even admin pages.",
+    "message": "Any Zendesk link with /agent in the URL: tickets, users, views, admin pages, and more.",
     "description": ""
   },
 
   "txt_welcome_button_read_docs": {
-    "message": "Read the full documentation",
+    "message": "Open the README",
     "description": ""
   }
 }

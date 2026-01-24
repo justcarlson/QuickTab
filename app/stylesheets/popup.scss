@@ -1,20 +1,36 @@
+:root {
+  --qt-bg: #f7f8f6;
+  --qt-surface: #ffffff;
+  --qt-text: #1e2a23;
+  --qt-muted: #6b776f;
+  --qt-border: #e2e7e1;
+  --qt-accent: #1f8f5c;
+  --qt-accent-soft: #e7f2ec;
+}
+
 html,
 body {
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-family: "Source Sans 3", "IBM Plex Sans", "Helvetica Neue", sans-serif;
   font-size: 12px;
-  color: #555;
-  margin: 8px;
+  color: var(--qt-text);
+  background: var(--qt-bg);
   margin: 0;
   padding: 0;
   width: 200px;
 }
 
+body {
+  padding: 10px 0 6px;
+}
+
 h1 {
   background: transparent url('../images/icons/icon38-disabled.png') no-repeat 0 0;
   background-size: 16px 16px;
-  font-size: 120%;
-  padding-left: 22px;
-  margin: 10px 0 0 10px;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  padding-left: 24px;
+  margin: 6px 12px 2px;
 }
 
 h1.enabled {
@@ -22,28 +38,30 @@ h1.enabled {
 }
 
 h2 {
-  border-bottom: 1px solid #ddd;
-  font-size: 95%;
-  font-weight: normal;
-  color: #999;
-  margin: 0 10px 5px;
-  padding-bottom: 5px;
-  width: 90%;
+  border-bottom: 1px solid var(--qt-border);
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--qt-muted);
+  margin: 12px 12px 6px;
+  padding-bottom: 6px;
 }
 
 #app-status {
-  color: #B0B0B0;
-  font-size: 90%;
-  margin: 0 0 0 10px;
-  padding: 2px 0 20px 22px;
+  color: var(--qt-muted);
+  font-size: 11px;
+  margin: 0 0 10px 12px;
+  padding: 2px 0 0 24px;
 }
 
 #settings-url-types {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 #settings-help {
-  padding-bottom: 10px;
+  padding-bottom: 6px;
 }
 
 ul {
@@ -53,31 +71,35 @@ ul {
 }
 
 li {
-  padding: 0 8px;
-  margin: 0;
+  padding: 0 6px;
+  margin: 4px 6px;
+  border-radius: 8px;
+  border: 1px solid transparent;
 }
 
 li:hover {
-  background-color: #f2f2f2;
+  background-color: var(--qt-accent-soft);
+  border-color: var(--qt-border);
 }
 
 li a {
-  padding: 10px 0 10px 2px;
+  padding: 8px 6px;
   display: block;
   text-decoration: none;
-  color: #555;
+  color: var(--qt-text);
 }
 
 li a:hover,
 li a:focus {
-  color: #041521;
+  color: var(--qt-accent);
   outline: 0;
 }
 
 li a.disabled {
-  color: lightGray;
+  color: var(--qt-muted);
 }
 
 li a.enabled {
-  background: transparent url('../images/icons/checkmark.png') no-repeat 155px 11px;
+  background: transparent url('../images/icons/checkmark.png') no-repeat 154px 10px;
+  background-size: 12px 12px;
 }
