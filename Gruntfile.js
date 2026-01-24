@@ -234,6 +234,32 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('ziprelease', function() {
+    var done = this.async(),
+        exec = require('child_process').exec,
+        manifest = grunt.file.readJSON('app/manifest.json'),
+        packageJson = grunt.file.readJSON('package.json'),
+        archiveName = packageJson.name + '-v' + manifest.version + '.zip',
+        command = 'zip -r "../' + archiveName + '" .';
+
+    exec(command, { cwd: 'build-release' }, function(error, stdout, stderr) {
+      if (stdout) {
+        grunt.log.write(stdout);
+      }
+
+      if (stderr) {
+        grunt.log.write(stderr);
+      }
+
+      if (error) {
+        grunt.log.error(error);
+        return done(false);
+      }
+
+      done();
+    });
+  });
+
   grunt.registerTask('build', [
     'clean',
     'jshint',
@@ -251,7 +277,7 @@ module.exports = function(grunt) {
       grunt.task.run('copy:release');
       grunt.task.run('sass:release');
       grunt.task.run('uglify');
-      grunt.task.run('compress');
+      grunt.task.run('ziprelease');
       grunt.task.run('copy:ziprelease');
       grunt.task.run('clean:release');
       grunt.task.run('changelog');
@@ -260,7 +286,7 @@ module.exports = function(grunt) {
       grunt.task.run('copy:release');
       grunt.task.run('sass:release');
       grunt.task.run('uglify');
-      grunt.task.run('compress');
+      grunt.task.run('ziprelease');
     }
   });
 
