@@ -14,7 +14,7 @@ This roadmap transforms QuickTab from a legacy Chrome extension (jQuery 1.6.1, E
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Build Foundation** - WXT/Vite project structure with TypeScript and tooling
+- [x] **Phase 1: Build Foundation** - WXT/Vite project structure with TypeScript and tooling
 - [ ] **Phase 2: Core Migration** - Service worker and URL matching logic to TypeScript
 - [ ] **Phase 3: UI Migration** - Popup and welcome page to vanilla TypeScript
 - [ ] **Phase 4: Testing & Quality** - Unit tests, E2E tests, and coverage
@@ -40,9 +40,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md - Initialize WXT project and TypeScript configuration
-- [ ] 01-02-PLAN.md - Configure Biome and pre-commit hooks
-- [ ] 01-03-PLAN.md - Move static assets and add bundle analysis
-- [ ] 01-04-PLAN.md - Verify build infrastructure (checkpoint)
+- [x] 01-02-PLAN.md - Configure Biome and pre-commit hooks
+- [x] 01-03-PLAN.md - Move static assets and add bundle analysis
+- [x] 01-04-PLAN.md - Verify build infrastructure (checkpoint)
 
 ### Phase 2: Core Migration
 **Goal**: Migrate service worker and URL matching logic to TypeScript with storage-first architecture
@@ -142,7 +142,7 @@ Each phase completes with a PR merge to main and a release tag.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Build Foundation | 1/4 | In progress | - |
+| 1. Build Foundation | 4/4 | Complete | 2026-01-25 |
 | 2. Core Migration | 0/? | Not started | - |
 | 3. UI Migration | 0/? | Not started | - |
 | 4. Testing & Quality | 0/? | Not started | - |
