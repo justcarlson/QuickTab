@@ -143,7 +143,7 @@ h1 {
 	padding: 14px 28px;
 	font-size: 14px;
 	font-weight: 600;
-	color: var(--text);
+	color: #1b1d1a; /* Always dark text on bright accent background */
 	background: var(--accent);
 	border-radius: 8px;
 	text-decoration: none;
