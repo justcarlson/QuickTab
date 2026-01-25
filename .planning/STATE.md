@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** Phase 3 (UI Migration) - Plan 2 complete
+**Current focus:** Phase 3 (UI Migration) - COMPLETE
 
 ## Current Position
 
 Phase: 3 of 6 (UI Migration)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-01-25 - Completed 03-02-PLAN.md
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-01-25 - Completed 03-03-PLAN.md
 
-Progress: [██████████████░░░░░░] 70%
+Progress: [███████████████░░░░░] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 3.5 min
-- Total execution time: 34 min
+- Total plans completed: 11
+- Average duration: 3.3 min
+- Total execution time: 36 min
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [██████████████░░░░░░] 70%
 |-------|-------|-------|----------|
 | 1 | 4/4 | 18 min | 4.5 min |
 | 2 | 4/4 | 11 min | 2.8 min |
-| 3 | 2/3 | 5 min | 2.5 min |
+| 3 | 3/3 | 7 min | 2.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 (5 min), 02-04 (<1 min), 03-01 (1 min), 03-02 (4 min)
-- Trend: UI plans averaging 2.5 min
+- Last 5 plans: 02-04 (<1 min), 03-01 (1 min), 03-02 (4 min), 03-03 (2 min)
+- Trend: UI plans averaging 2.3 min
 
 *Updated after each plan completion*
 
@@ -69,6 +69,8 @@ Recent decisions affecting current work:
 - [03-01]: Keep both PNG and WebP hero images for browser compatibility
 - [03-02]: Use element IDs for i18n targeting, silent fallback on messaging errors
 - [03-02]: Remove HTML from lint-staged - biome does not support HTML formatting
+- [03-03]: Reuse popup CSS custom properties for welcome page visual consistency
+- [03-03]: Use picture element with WebP primary and PNG fallback for hero
 
 ### Pending Todos
 
@@ -80,8 +82,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25T20:06:00Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-01-25T20:01:00Z
+Stopped at: Completed 03-03-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
@@ -122,26 +124,29 @@ Phase 2 (Core Migration) is complete. All 4 plans executed successfully:
 - Service worker starts and logs correctly
 - Navigation interception deferred (requires Zendesk access)
 
-## Phase 3 Progress
+## Phase 3 Summary
 
-Phase 3 (UI Migration) in progress:
+Phase 3 (UI Migration) is complete. All 3 plans executed successfully:
 
 | Plan | Name | Duration | Status |
 |------|------|----------|--------|
 | 03-01 | Design Tokens & Assets | 1 min | Complete |
 | 03-02 | Popup Implementation | 4 min | Complete |
-| 03-03 | Welcome Page | - | Pending |
+| 03-03 | Welcome Page | 2 min | Complete |
+
+**Total Phase 3 duration:** 7 min
 
 **UI modules delivered:**
 - entrypoints/popup/style.css - CSS design tokens with dark mode
 - entrypoints/popup/index.html - Popup HTML with mode toggle and help section
 - entrypoints/popup/main.ts - Popup logic with background messaging
+- entrypoints/welcome/index.html - Welcome page with hero and FAQ grid
+- entrypoints/welcome/style.css - Welcome page styles with responsive layout
+- entrypoints/welcome/main.ts - Welcome page i18n population
 - public/images/pages/welcome/hero-v2.png - Hero PNG image
 - public/images/pages/welcome/hero-v2.webp - Hero WebP image
 
-**Popup features:**
-- Three-way mode toggle (allUrls, ticketUrls, noUrls)
-- Instant apply on toggle change (no save button)
-- i18n support via chrome.i18n.getMessage
-- Help links (docs + welcome page)
-- Dark mode support via CSS custom properties
+**UI features:**
+- Popup: Three-way mode toggle, instant apply, i18n, dark mode
+- Welcome: Hero image with WebP/PNG fallback, FAQ cards, CTA button
+- Both pages share same CSS custom properties for visual consistency
