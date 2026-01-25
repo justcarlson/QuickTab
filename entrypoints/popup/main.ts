@@ -1,1 +1,1 @@
-console.log('QuickTab popup loaded');
+console.log("QuickTab popup loaded");

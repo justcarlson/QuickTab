@@ -22,6 +22,22 @@
 		}
 	},
 	"files": {
-		"includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json", "**/*.html", "**/*.css"]
+		"includes": [
+			"**/*.ts",
+			"**/*.tsx",
+			"**/*.js",
+			"**/*.jsx",
+			"**/*.json",
+			"**/*.html",
+			"**/*.css",
+			"!.wxt",
+			"!.output",
+			"!node_modules",
+			"!dist",
+			"!build",
+			"!app",
+			"!Gruntfile.js",
+			"!.planning"
+		]
 	}
 }
