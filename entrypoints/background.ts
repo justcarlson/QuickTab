@@ -10,10 +10,57 @@
  * - No global state variables (service worker terminates)
  */
 
-import { clearState, getUrlDetection, loadState, saveState } from "@/src/utils/storage";
+import {
+	clearState,
+	getUrlDetection,
+	loadState,
+	saveState,
+	setUrlDetection,
+} from "@/src/utils/storage";
 import { closeTab, focusTab, queryZendeskTabs, updateTabUrl } from "@/src/utils/tabs";
 import type { RouteMatch, UrlDetectionMode, ZendeskTabInfo } from "@/src/utils/types";
 import { buildZendeskUrl, isZendeskAgentUrl, matchZendeskUrl } from "@/src/utils/url-matching";
+
+/**
+ * Message types for popup communication
+ */
+interface GetStatusMessage {
+	type: "getStatus";
+}
+
+interface SetModeMessage {
+	type: "setMode";
+	mode: UrlDetectionMode;
+}
+
+type BackgroundMessage = GetStatusMessage | SetModeMessage;
+
+interface GetStatusResponse {
+	mode: UrlDetectionMode;
+}
+
+/**
+ * Update action icon for all Zendesk agent tabs based on detection mode.
+ * Per existing behavior: enabled icon if mode !== 'noUrls', disabled otherwise.
+ *
+ * @param mode - Current URL detection mode
+ */
+async function setActionIcon(mode: UrlDetectionMode): Promise<void> {
+	const iconPath =
+		mode !== "noUrls" ? "/images/icons/icon38-enabled.png" : "/images/icons/icon38-disabled.png";
+
+	// Query all Zendesk agent tabs and update their icons
+	const tabs = await queryZendeskTabs();
+	for (const tab of tabs) {
+		if (tab.id) {
+			try {
+				await chrome.action.setIcon({ tabId: tab.id, path: iconPath });
+			} catch {
+				// Tab may have closed, ignore
+			}
+		}
+	}
+}
 
 /**
  * Find the most recently active tab for a given subdomain.
@@ -56,7 +103,7 @@ function findMostRecentTab(
  */
 async function handleNavigation(
 	sourceTabId: number,
-	sourceUrl: string,
+	_sourceUrl: string,
 	match: RouteMatch,
 ): Promise<void> {
 	const state = await loadState();
@@ -254,7 +301,54 @@ export default defineBackground(() => {
 
 			// Enable action icon for this tab
 			chrome.action.enable(details.tabId);
+
+			// Set icon state based on detection mode
+			const mode = await getUrlDetection();
+			await setActionIcon(mode);
 		},
 		{ url: [{ urlContains: "zendesk.com/agent" }] },
+	);
+
+	/**
+	 * Message handler for popup communication
+	 * Handles getStatus and setMode messages
+	 */
+	chrome.runtime.onMessage.addListener(
+		(
+			message: BackgroundMessage,
+			_sender: chrome.runtime.MessageSender,
+			sendResponse: (response: GetStatusResponse | boolean) => void,
+		) => {
+			// Handle each message type
+			if (message.type === "getStatus") {
+				// Return current detection mode
+				getUrlDetection()
+					.then((mode) => {
+						sendResponse({ mode });
+					})
+					.catch(() => {
+						sendResponse({ mode: "allUrls" });
+					});
+				// Return true to indicate async response
+				return true;
+			}
+
+			if (message.type === "setMode") {
+				// Save new mode and update icons
+				setUrlDetection(message.mode)
+					.then(() => setActionIcon(message.mode))
+					.then(() => {
+						sendResponse(true);
+					})
+					.catch(() => {
+						sendResponse(false);
+					});
+				// Return true to indicate async response
+				return true;
+			}
+
+			// Unknown message type
+			return false;
+		},
 	);
 });
