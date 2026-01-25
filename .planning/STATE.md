@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** Phase 3 Complete - Ready for Phase 4 (Testing & Quality)
+**Current focus:** Phase 4 (Testing & Quality) - Plan 01 Complete
 
 ## Current Position
 
-Phase: 3 of 6 (UI Migration) - COMPLETE
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-25 - Completed 03-04-PLAN.md
+Phase: 4 of 6 (Testing & Quality)
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-25 - Completed 04-01-PLAN.md
 
-Progress: [████████████████░░░░] 80%
+Progress: [█████████████████░░░] 85%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 3.5 min
-- Total execution time: 41 min
+- Total plans completed: 13
+- Average duration: 3.4 min
+- Total execution time: 44 min
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [████████████████░░░░] 80%
 | 1 | 4/4 | 18 min | 4.5 min |
 | 2 | 4/4 | 11 min | 2.8 min |
 | 3 | 4/4 | 12 min | 3.0 min |
+| 4 | 1/4 | 3 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (1 min), 03-02 (4 min), 03-03 (2 min), 03-04 (5 min)
-- Trend: UI phase efficient, verification included human testing
+- Last 5 plans: 03-02 (4 min), 03-03 (2 min), 03-04 (5 min), 04-01 (3 min)
+- Trend: Testing infrastructure setup efficient
 
 *Updated after each plan completion*
 
@@ -72,6 +73,9 @@ Recent decisions affecting current work:
 - [03-03]: Reuse popup CSS custom properties for welcome page visual consistency
 - [03-03]: Use picture element with WebP primary and PNG fallback for hero
 - [03-04]: CTA button uses fixed dark text color for contrast on accent background
+- [04-01]: v8 coverage provider over Istanbul (faster in Vitest 3.2+)
+- [04-01]: 70% global coverage thresholds as achievable baseline
+- [04-01]: Exclude types.ts and UI entry files from coverage (no logic)
 
 ### Pending Todos
 
@@ -83,8 +87,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25
-Stopped at: Completed 03-04-PLAN.md (Phase 3 complete)
+Last session: 2026-01-25 21:33
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
@@ -152,3 +156,20 @@ Phase 3 (UI Migration) is complete. All 4 plans executed successfully:
 - Popup: Three-way mode toggle, instant apply, i18n, dark mode
 - Welcome: Hero image with WebP/PNG fallback, FAQ cards, CTA button
 - Both pages share same CSS custom properties for visual consistency
+
+## Phase 4 Progress
+
+Phase 4 (Testing & Quality) in progress:
+
+| Plan | Name | Duration | Status |
+|------|------|----------|--------|
+| 04-01 | Test Infrastructure | 3 min | Complete |
+| 04-02 | Utility Function Tests | - | Pending |
+| 04-03 | E2E Tests | - | Pending |
+| 04-04 | Quality Verification | - | Pending |
+
+**Test infrastructure delivered:**
+- vitest.config.ts - Vitest config with WxtVitest plugin
+- vitest.setup.ts - Global setup with fake-browser reset
+- src/utils/storage.test.ts - Smoke test for Chrome API mocking
+- package.json - test, test:coverage, test:e2e scripts
