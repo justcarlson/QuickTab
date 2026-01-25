@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** Phase 3 (UI Migration) - Plan 1 complete
+**Current focus:** Phase 3 (UI Migration) - Plan 2 complete
 
 ## Current Position
 
 Phase: 3 of 6 (UI Migration)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-25 - Completed 03-01-PLAN.md
+Last activity: 2026-01-25 - Completed 03-02-PLAN.md
 
-Progress: [█████████████░░░░░░░] 65%
+Progress: [██████████████░░░░░░] 70%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: 3 min
-- Total execution time: 30 min
+- Total plans completed: 10
+- Average duration: 3.5 min
+- Total execution time: 34 min
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [█████████████░░░░░░░] 65%
 |-------|-------|-------|----------|
 | 1 | 4/4 | 18 min | 4.5 min |
 | 2 | 4/4 | 11 min | 2.8 min |
-| 3 | 1/3 | 1 min | 1.0 min |
+| 3 | 2/3 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (3 min), 02-03 (5 min), 02-04 (<1 min), 03-01 (1 min)
-- Trend: Asset/setup plans fast; logic plans take longer
+- Last 5 plans: 02-03 (5 min), 02-04 (<1 min), 03-01 (1 min), 03-02 (4 min)
+- Trend: UI plans averaging 2.5 min
 
 *Updated after each plan completion*
 
@@ -67,6 +67,8 @@ Recent decisions affecting current work:
 - [02-04]: Navigation interception deferred - verified with Zendesk access later
 - [03-01]: CSS custom properties with prefers-color-scheme for automatic dark mode
 - [03-01]: Keep both PNG and WebP hero images for browser compatibility
+- [03-02]: Use element IDs for i18n targeting, silent fallback on messaging errors
+- [03-02]: Remove HTML from lint-staged - biome does not support HTML formatting
 
 ### Pending Todos
 
@@ -78,8 +80,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25T19:56:03Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-01-25T20:06:00Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
@@ -127,10 +129,19 @@ Phase 3 (UI Migration) in progress:
 | Plan | Name | Duration | Status |
 |------|------|----------|--------|
 | 03-01 | Design Tokens & Assets | 1 min | Complete |
-| 03-02 | Popup Implementation | - | Pending |
+| 03-02 | Popup Implementation | 4 min | Complete |
 | 03-03 | Welcome Page | - | Pending |
 
-**Assets delivered:**
+**UI modules delivered:**
 - entrypoints/popup/style.css - CSS design tokens with dark mode
+- entrypoints/popup/index.html - Popup HTML with mode toggle and help section
+- entrypoints/popup/main.ts - Popup logic with background messaging
 - public/images/pages/welcome/hero-v2.png - Hero PNG image
 - public/images/pages/welcome/hero-v2.webp - Hero WebP image
+
+**Popup features:**
+- Three-way mode toggle (allUrls, ticketUrls, noUrls)
+- Instant apply on toggle change (no save button)
+- i18n support via chrome.i18n.getMessage
+- Help links (docs + welcome page)
+- Dark mode support via CSS custom properties
