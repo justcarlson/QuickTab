@@ -9,29 +9,30 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 
 ## Current Position
 
-Phase: 1 of 6 (Build Foundation) - COMPLETE
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-25 - Completed 01-04-PLAN.md
+Phase: 2 of 6 (Core Migration)
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-25 - Completed 02-01-PLAN.md
 
-Progress: [████████░░░░░░░░░░░░] 40%
+Progress: [████████░░░░░░░░░░░░] 42%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 5 min
-- Total execution time: 18 min
+- Total plans completed: 5
+- Average duration: 4 min
+- Total execution time: 20 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 | 4/4 | 18 min | 4.5 min |
+| 2 | 1/4 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4 min), 01-02 (9 min), 01-03 (2 min), 01-04 (3 min)
-- Trend: Verification plans faster than implementation plans
+- Last 5 plans: 01-02 (9 min), 01-03 (2 min), 01-04 (3 min), 02-01 (2 min)
+- Trend: Utility module plans execute quickly
 
 *Updated after each plan completion*
 
@@ -53,6 +54,9 @@ Recent decisions affecting current work:
 - [01-03]: Conditional visualizer plugin via ANALYZE env variable
 - [01-04]: Extension loads in Chrome without errors - human verified
 - [01-04]: All BUILD and QUAL requirements verified
+- [02-01]: Native URL constructor for parsing, regex for route matching only
+- [02-01]: Pathname-only matching ignores query params and hash
+- [02-01]: Record<number, T> for tab tracking (JSON-serializable)
 
 ### Pending Todos
 
@@ -64,8 +68,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25T17:19:29Z
-Stopped at: Completed 01-04-PLAN.md (Phase 1 complete)
+Last session: 2026-01-25T18:43:19Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
@@ -81,4 +85,13 @@ Phase 1 (Build Foundation) is complete. All 4 plans executed successfully:
 
 **Total Phase 1 duration:** 18 min
 
-**Ready for Phase 2:** Core Migration (message passing, storage, service worker)
+## Phase 2 Progress
+
+| Plan | Name | Duration | Status |
+|------|------|----------|--------|
+| 02-01 | URL Types & Matching | 2 min | Complete |
+| 02-02 | Storage Module | - | Pending |
+| 02-03 | Service Worker | - | Pending |
+| 02-04 | Core Migration Verification | - | Pending |
+
+**Ready:** src/utils/types.ts and src/utils/url-matching.ts ready for use
