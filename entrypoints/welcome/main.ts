@@ -1,1 +1,1 @@
-console.log('QuickTab welcome page loaded');
+console.log("QuickTab welcome page loaded");
