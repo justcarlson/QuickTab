@@ -36,7 +36,10 @@
 			"!build",
 			"!app",
 			"!Gruntfile.js",
-			"!.planning"
+			"!.planning",
+			"!coverage",
+			"!playwright-report",
+			"!test-results"
 		]
 	}
 }
