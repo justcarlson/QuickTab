@@ -78,10 +78,13 @@ Plans:
   5. Zero jQuery or Handlebars dependencies remain in codebase
   6. Feature branch merged to main via PR
   7. Phase completion tagged as `v0.12.0-phase-3`
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md - Set up CSS design tokens and copy hero images
+- [ ] 03-02-PLAN.md - Implement popup UI with mode toggle and messaging
+- [ ] 03-03-PLAN.md - Implement welcome page with hero and FAQ cards
+- [ ] 03-04-PLAN.md - Verify UI migration (checkpoint)
 
 ### Phase 4: Testing & Quality
 **Goal**: Establish comprehensive test coverage for regression prevention
@@ -147,7 +150,7 @@ Each phase completes with a PR merge to main and a release tag.
 |-------|----------------|--------|-----------|
 | 1. Build Foundation | 4/4 | Complete | 2026-01-25 |
 | 2. Core Migration | 4/4 | Complete | 2026-01-25 |
-| 3. UI Migration | 0/? | Not started | - |
+| 3. UI Migration | 0/4 | Not started | - |
 | 4. Testing & Quality | 0/? | Not started | - |
 | 5. Web Store Compliance | 0/? | Not started | - |
 | 6. CI/CD & Automation | 0/? | Not started | - |
