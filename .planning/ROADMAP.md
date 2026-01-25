@@ -102,8 +102,8 @@ Plans:
 **Plans**: 6 plans
 
 Plans:
-- [ ] 04-01-PLAN.md - Configure Vitest with WXT plugin and coverage reporting
-- [ ] 04-02-PLAN.md - Create URL matching unit tests
+- [x] 04-01-PLAN.md - Configure Vitest with WXT plugin and coverage reporting
+- [x] 04-02-PLAN.md - Create URL matching unit tests
 - [ ] 04-03-PLAN.md - Create storage and tabs unit tests
 - [ ] 04-04-PLAN.md - Create background service worker unit tests
 - [ ] 04-05-PLAN.md - Set up Playwright E2E tests for popup
@@ -156,7 +156,7 @@ Each phase completes with a PR merge to main and a release tag.
 | 1. Build Foundation | 4/4 | Complete | 2026-01-25 |
 | 2. Core Migration | 4/4 | Complete | 2026-01-25 |
 | 3. UI Migration | 4/4 | Complete | 2026-01-25 |
-| 4. Testing & Quality | 0/6 | Not started | - |
+| 4. Testing & Quality | 2/6 | In progress | - |
 | 5. Web Store Compliance | 0/? | Not started | - |
 | 6. CI/CD & Automation | 0/? | Not started | - |
 
