@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** Phase 4 (Testing & Quality) - Plan 05 Complete
+**Current focus:** Phase 4 (Testing & Quality) - Complete
 
 ## Current Position
 
 Phase: 4 of 6 (Testing & Quality)
-Plan: 5 of 6 in current phase
-Status: In progress
-Last activity: 2026-01-25 - Completed 04-05-PLAN.md
+Plan: 6 of 6 in current phase
+Status: Phase complete
+Last activity: 2026-01-25 - Completed 04-06-PLAN.md
 
-Progress: [█████████████████░░░] 85%
+Progress: [██████████████████░░] 90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
+- Total plans completed: 18
 - Average duration: 3.4 min
-- Total execution time: 58 min
+- Total execution time: 62 min
 
 **By Phase:**
 
@@ -30,11 +30,11 @@ Progress: [█████████████████░░░] 85%
 | 1 | 4/4 | 18 min | 4.5 min |
 | 2 | 4/4 | 11 min | 2.8 min |
 | 3 | 4/4 | 12 min | 3.0 min |
-| 4 | 5/6 | 17 min | 3.4 min |
+| 4 | 6/6 | 21 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (2 min), 04-03 (2 min), 04-04 (3 min), 04-05 (7 min)
-- Trend: E2E setup took longer due to build/test cycle debugging
+- Last 5 plans: 04-03 (2 min), 04-04 (3 min), 04-05 (7 min), 04-06 (4 min)
+- Trend: CI workflow setup completed quickly
 
 *Updated after each plan completion*
 
@@ -85,6 +85,9 @@ Recent decisions affecting current work:
 - [04-05]: Single worker with no parallelism for extension E2E testing
 - [04-05]: Click labels instead of hidden radio inputs for custom-styled controls
 - [04-05]: Move background.test.ts from entrypoints/ to src/ (WXT naming conflict)
+- [04-06]: Exclude test artifacts from biome linting (coverage/, playwright-report/, test-results/)
+- [04-06]: Exclude entrypoints/background.ts from coverage (tested via behavior tests & E2E)
+- [04-06]: Use setText helper instead of non-null assertions in welcome/main.ts
 
 ### Pending Todos
 
@@ -96,8 +99,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25 21:44
-Stopped at: Completed 04-05-PLAN.md
+Last session: 2026-01-25 16:51
+Stopped at: Completed 04-06-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
@@ -166,9 +169,9 @@ Phase 3 (UI Migration) is complete. All 4 plans executed successfully:
 - Welcome: Hero image with WebP/PNG fallback, FAQ cards, CTA button
 - Both pages share same CSS custom properties for visual consistency
 
-## Phase 4 Progress
+## Phase 4 Summary
 
-Phase 4 (Testing & Quality) in progress:
+Phase 4 (Testing & Quality) is complete. All 6 plans executed successfully:
 
 | Plan | Name | Duration | Status |
 |------|------|----------|--------|
@@ -177,7 +180,9 @@ Phase 4 (Testing & Quality) in progress:
 | 04-03 | Storage & Tabs Tests | 2 min | Complete |
 | 04-04 | Background Tests | 3 min | Complete |
 | 04-05 | E2E Tests | 7 min | Complete |
-| 04-06 | Quality Verification | - | Pending |
+| 04-06 | CI Workflow Setup | 4 min | Complete |
+
+**Total Phase 4 duration:** 21 min
 
 **Test coverage delivered:**
 - vitest.config.ts - Vitest config with WxtVitest plugin
@@ -185,7 +190,7 @@ Phase 4 (Testing & Quality) in progress:
 - src/utils/url-matching.test.ts - 41 tests, 96.55% coverage
 - src/utils/storage.test.ts - 16 tests, 100% coverage
 - src/utils/tabs.test.ts - 11 tests, 100% coverage
-- src/background.test.ts - 25 tests, TEST-08 persistence verified
+- src/background.test.ts - 22 tests, TEST-08 persistence verified
 - package.json - test, test:coverage, test:e2e scripts
 
 **E2E test infrastructure delivered:**
@@ -193,3 +198,8 @@ Phase 4 (Testing & Quality) in progress:
 - e2e/fixtures.ts - Extension loading fixtures with service worker waiting
 - e2e/popup.spec.ts - Popup UI tests (3 tests, all passing)
 - e2e/mock-pages/agent-ticket.html - Mock page for future navigation tests
+
+**CI workflow delivered:**
+- .github/workflows/ci.yml - GitHub Actions CI with lint, test, build, E2E jobs
+- Coverage: 90 unit tests, 98.41% coverage on business logic
+- All PRs to master/main trigger automated quality gates
