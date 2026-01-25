@@ -5,3 +5,14 @@ node_modules
 npm-debug.log
 .DS_Store
 .opencode
+
+# WXT
+.wxt/
+.output/
+
+# Test coverage
+coverage/
+
+# Playwright
+playwright-report/
+test-results/

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to QuickTab</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="app">
+    <header class="hero">
+      <p id="thank-you" class="eyebrow"></p>
+      <h1 id="headline"></h1>
+      <p id="hook" class="lead"></p>
+    </header>
+
+    <div class="hero-image-container">
+      <picture>
+        <source srcset="/images/pages/welcome/hero-v2.webp" type="image/webp">
+        <img src="/images/pages/welcome/hero-v2.png"
+             alt="QuickTab routing a Zendesk link to an existing tab"
+             id="hero-image"
+             class="hero-image">
+      </picture>
+    </div>
+
+    <section class="faq-section">
+      <div class="faq-grid">
+        <article class="faq-card">
+          <h3 id="faq-1-title"></h3>
+          <p id="faq-1-body"></p>
+        </article>
+        <article class="faq-card">
+          <h3 id="faq-2-title"></h3>
+          <p id="faq-2-body"></p>
+        </article>
+        <article class="faq-card">
+          <h3 id="faq-3-title"></h3>
+          <p id="faq-3-body"></p>
+        </article>
+        <article class="faq-card">
+          <h3 id="faq-4-title"></h3>
+          <p id="faq-4-body"></p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="cta-section">
+      <a href="https://github.com/zendesklabs/QuickTab#readme"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="cta-button"
+         id="cta-button"></a>
+    </footer>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickTab</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app" class="loading">
+      <header>
+        <h1>QuickTab</h1>
+      </header>
+
+      <section id="mode-section">
+        <h2 id="mode-heading"></h2>
+        <div class="mode-options" role="radiogroup" aria-labelledby="mode-heading">
+          <label class="mode-option">
+            <input type="radio" name="detection-mode" value="allUrls" />
+            <span class="label" id="label-allUrls"></span>
+            <span class="indicator" aria-hidden="true"></span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="detection-mode" value="ticketUrls" />
+            <span class="label" id="label-ticketUrls"></span>
+            <span class="indicator" aria-hidden="true"></span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="detection-mode" value="noUrls" />
+            <span class="label" id="label-noUrls"></span>
+            <span class="indicator" aria-hidden="true"></span>
+          </label>
+        </div>
+      </section>
+
+      <section id="help-section">
+        <h2 id="help-heading"></h2>
+        <ul>
+          <li>
+            <a
+              href="https://github.com/zendesklabs/QuickTab#readme"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="link-docs"
+            ></a>
+          </li>
+          <li>
+            <a href="#" id="link-welcome"></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
