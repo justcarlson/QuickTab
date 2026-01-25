@@ -36,10 +36,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. Source maps enable debugging in Chrome DevTools
   6. Feature branch merged to main via PR
   7. Phase completion tagged as `v0.12.0-phase-1`
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md - Initialize WXT project and TypeScript configuration
+- [ ] 01-02-PLAN.md - Configure Biome and pre-commit hooks
+- [ ] 01-03-PLAN.md - Move static assets and add bundle analysis
+- [ ] 01-04-PLAN.md - Verify build infrastructure (checkpoint)
 
 ### Phase 2: Core Migration
 **Goal**: Migrate service worker and URL matching logic to TypeScript with storage-first architecture
@@ -139,7 +142,7 @@ Each phase completes with a PR merge to main and a release tag.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Build Foundation | 0/? | Not started | - |
+| 1. Build Foundation | 0/4 | Planned | - |
 | 2. Core Migration | 0/? | Not started | - |
 | 3. UI Migration | 0/? | Not started | - |
 | 4. Testing & Quality | 0/? | Not started | - |
