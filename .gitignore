@@ -9,3 +9,10 @@ npm-debug.log
 # WXT
 .wxt/
 .output/
+
+# Test coverage
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
