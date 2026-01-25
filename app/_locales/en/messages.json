@@ -60,22 +60,22 @@
   },
 
   "txt_welcome_header_what_do": {
-    "message": "What does QuickTab do?",
+    "message": "Why you need this",
     "description": ""
   },
 
   "txt_welcome_body_what_do": {
-    "message": "If a Zendesk agent tab is already open, new agent links reuse it instead of opening another tab.",
+    "message": "Zendesk links pop up everywhere. QuickTab keeps your workspace tidy by reusing the Zendesk tab you are already working in.",
     "description": ""
   },
 
   "txt_welcome_header_new_browser_tab": {
-    "message": "Can I open a new tab anyway?",
+    "message": "How it works",
     "description": ""
   },
 
   "txt_welcome_body_new_browser_tab": {
-    "message": "Yes. Toggle QuickTab off from the toolbar icon, then open links normally.",
+    "message": "Click a Zendesk ticket link in any app and QuickTab finds your open Zendesk tab, then opens the link there instead.",
     "description": ""
   },
 

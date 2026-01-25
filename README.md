@@ -1,7 +1,11 @@
-# Zendesk QuickTab
-Well behaved browser tabs for Zendesk agents.
+# QuickTab for Zendesk
+Well-behaved browser tabs for Zendesk agents.
 
-Zendesk QuickTab keeps Zendesk `/agent` links in one calm, focused tab. Click any agent link from anywhere and QuickTab routes it to the agent tab you already have open.
+![QuickTab hero](app/images/pages/welcome/hero-v2.png)
+
+QuickTab keeps Zendesk `/agent` links in one calm, focused tab. Click any agent link from anywhere and QuickTab routes it to the Zendesk tab you already have open.
+
+This is an independent community-maintained project and is not affiliated with Zendesk or Zendesk Labs. The original archived repository lives at https://github.com/zendesklabs/QuickTab.
 
 ## Why teams use it
 - Keep one working agent tab instead of a tab pile
@@ -11,17 +15,15 @@ Zendesk QuickTab keeps Zendesk `/agent` links in one calm, focused tab. Click an
 ## How it works
 QuickTab watches for Zendesk `/agent` URLs. If an agent tab exists, it reuses that tab and navigates there. If not, it opens the link as normal.
 
-## Install Locally
-1. Download the latest release zip from `releases/` or build locally.
-2. Unzip the archive.
+## Get started
+1. Download the latest release from https://github.com/zendesklabs/QuickTab/releases.
+2. Unzip the download.
 3. Open `chrome://extensions` and enable Developer mode.
-4. Click “Load unpacked” and select the `build/` folder.
+4. Click "Load unpacked" and select the unzipped folder.
 
-## Build Locally
-```bash
-npm install
-grunt build
-```
+## Using QuickTab
+- Click any Zendesk `/agent` link in Slack, email, or docs and it routes to your open Zendesk tab.
+- Want a fresh tab? Toggle QuickTab off from the toolbar icon, open the link, then toggle it back on.
 
 ## Permissions
 QuickTab requests permission to read and change data on `zendesk.com` so it can detect and redirect `/agent` links.
@@ -30,5 +32,4 @@ QuickTab requests permission to read and change data on `zendesk.com` so it can 
 This extension is distributed as an unpacked install. It is not currently on the Chrome Web Store.
 
 ## Links
-- README: https://github.com/zendesklabs/QuickTab#readme
-- Issues: https://github.com/zendesklabs/QuickTab/issues
+- Original archived repo: https://github.com/zendesklabs/QuickTab

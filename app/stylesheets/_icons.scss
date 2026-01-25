@@ -1,0 +1,17 @@
+@mixin icon-mask($svg-url, $color: currentColor, $size: 16px) {
+  -webkit-mask: url($svg-url) no-repeat 50% 50%;
+  mask: url($svg-url) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  background-color: $color;
+  display: inline-block;
+  width: $size;
+  height: $size;
+}
+
+/* SVG Data URIs */
+/* Checkmark: Simple thick check */
+$icon-checkmark: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E";
+
+/* Logo/Tab: Simple browser tab shape */
+$icon-tab: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M3 4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4zm2 0v16h14V4h-4.5l-1-1h-5l-1 1H5z'/%3E%3C/svg%3E";

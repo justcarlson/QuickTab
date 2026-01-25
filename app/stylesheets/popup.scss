@@ -1,16 +1,9 @@
-:root {
-  --qt-bg: #f7f8f6;
-  --qt-surface: #ffffff;
-  --qt-text: #1e2a23;
-  --qt-muted: #6b776f;
-  --qt-border: #e2e7e1;
-  --qt-accent: #1f8f5c;
-  --qt-accent-soft: #e7f2ec;
-}
+@import "variables";
+@import "icons";
 
 html,
 body {
-  font-family: "Source Sans 3", "IBM Plex Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--qt-font-body);
   font-size: 12px;
   color: var(--qt-text);
   background: var(--qt-bg);
@@ -24,26 +17,38 @@ body {
 }
 
 h1 {
-  background: transparent url('../images/icons/icon38-disabled.png') no-repeat 0 0;
-  background-size: 16px 16px;
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-  padding-left: 24px;
+  /* Layout */
+  display: flex;
+  align-items: center;
   margin: 6px 12px 2px;
+  
+  /* Typography */
+  font-family: var(--qt-font-heading);
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  
+  /* Icon via pseudo-element */
+  &:before {
+    content: '';
+    @include icon-mask($icon-tab, var(--qt-muted), 16px);
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
 }
 
 h1.enabled {
-  background-image: url('../images/icons/icon38-enabled.png')
+  &:before {
+    background-color: var(--qt-accent);
+  }
 }
 
 h2 {
   border-bottom: 1px solid var(--qt-border);
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-family: var(--qt-font-heading);
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--qt-muted);
   margin: 12px 12px 6px;
   padding-bottom: 6px;
@@ -73,7 +78,7 @@ ul {
 li {
   padding: 0 6px;
   margin: 4px 6px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid transparent;
 }
 
@@ -83,16 +88,25 @@ li:hover {
 }
 
 li a {
-  padding: 8px 6px;
-  display: block;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  box-sizing: border-box;
   text-decoration: none;
   color: var(--qt-text);
-}
 
-li a:hover,
-li a:focus {
-  color: var(--qt-accent);
-  outline: 0;
+  &:focus-visible {
+    outline: 2px solid rgba(200, 240, 90, 0.6);
+    outline-offset: 2px;
+  }
+  
+  &:hover,
+  &:focus {
+    color: var(--qt-accent);
+    outline: 0;
+  }
 }
 
 li a.disabled {
@@ -100,6 +114,11 @@ li a.disabled {
 }
 
 li a.enabled {
-  background: transparent url('../images/icons/checkmark.png') no-repeat 154px 10px;
-  background-size: 12px 12px;
+  /* Checkmark Icon handled by flexbox justify-content: space-between */
+  &:after {
+    content: '';
+    @include icon-mask($icon-checkmark, var(--qt-accent), 12px);
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
 }

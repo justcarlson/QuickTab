@@ -1,0 +1,44 @@
+:root {
+  /* Core Palette */
+  --qt-bg: #f7f7f2;
+  --qt-surface: #ffffff;
+  --qt-text: #1b1d1a;
+  --qt-muted: #5a5f56;
+  --qt-border: #e5e6dd;
+
+  /* Typography */
+  --qt-font-body: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --qt-font-heading: "Space Grotesk", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+
+  /* Mockup Palette */
+  --qt-mock-surface: #ffffff;
+  --qt-mock-surface-soft: #f4f5ef;
+  --qt-mock-border: #dfe2d6;
+  --qt-mock-divider: #e7eadf;
+  --qt-mock-ink: #20241f;
+  --qt-mock-muted: #858c82;
+  
+  /* Brand */
+  --qt-accent: #c8f05a;
+  --qt-accent-dark: #9fd138;
+  --qt-accent-soft: #eef7d6;
+
+  /* Dark Mode Overrides (Phase 3 Prep) */
+  @media (prefers-color-scheme: dark) {
+    --qt-bg: #111311;
+    --qt-surface: #1c1f1c;
+    --qt-text: #f2f4ef;
+    --qt-muted: #a4aba0;
+    --qt-border: #2e332d;
+    --qt-accent: #c8f05a;
+    --qt-accent-dark: #9fd138;
+    --qt-accent-soft: #20300f;
+
+    --qt-mock-surface: #1c201b;
+    --qt-mock-surface-soft: #222823;
+    --qt-mock-border: #2b312b;
+    --qt-mock-divider: #30362f;
+    --qt-mock-ink: #f1f5ee;
+    --qt-mock-muted: #9aa39a;
+  }
+}
