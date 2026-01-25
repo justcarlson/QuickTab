@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Build Foundation** - WXT/Vite project structure with TypeScript and tooling
 - [x] **Phase 2: Core Migration** - Service worker and URL matching logic to TypeScript
 - [x] **Phase 3: UI Migration** - Popup and welcome page to vanilla TypeScript
-- [ ] **Phase 4: Testing & Quality** - Unit tests, E2E tests, and coverage
+- [x] **Phase 4: Testing & Quality** - Unit tests, E2E tests, and coverage
 - [ ] **Phase 5: Web Store Compliance** - Privacy policy, permissions audit, store metadata
 - [ ] **Phase 6: CI/CD & Automation** - GitHub Actions, versioning, changelog
 
@@ -104,10 +104,10 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md - Configure Vitest with WXT plugin and coverage reporting
 - [x] 04-02-PLAN.md - Create URL matching unit tests
-- [ ] 04-03-PLAN.md - Create storage and tabs unit tests
-- [ ] 04-04-PLAN.md - Create background service worker unit tests
-- [ ] 04-05-PLAN.md - Set up Playwright E2E tests for popup
-- [ ] 04-06-PLAN.md - Create GitHub Actions CI workflow
+- [x] 04-03-PLAN.md - Create storage and tabs unit tests
+- [x] 04-04-PLAN.md - Create background service worker unit tests
+- [x] 04-05-PLAN.md - Set up Playwright E2E tests for popup
+- [x] 04-06-PLAN.md - Create GitHub Actions CI workflow
 
 ### Phase 5: Web Store Compliance
 **Goal**: Prepare extension for Chrome Web Store submission
@@ -156,7 +156,7 @@ Each phase completes with a PR merge to main and a release tag.
 | 1. Build Foundation | 4/4 | Complete | 2026-01-25 |
 | 2. Core Migration | 4/4 | Complete | 2026-01-25 |
 | 3. UI Migration | 4/4 | Complete | 2026-01-25 |
-| 4. Testing & Quality | 2/6 | In progress | - |
+| 4. Testing & Quality | 6/6 | Complete | 2026-01-25 |
 | 5. Web Store Compliance | 0/? | Not started | - |
 | 6. CI/CD & Automation | 0/? | Not started | - |
 
