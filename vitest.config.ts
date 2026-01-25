@@ -16,6 +16,7 @@ export default defineConfig({
 				"**/types.ts",
 				"entrypoints/popup/main.ts",
 				"entrypoints/welcome/main.ts",
+				"entrypoints/background.ts", // Tested via storage behavior tests & E2E
 			],
 			thresholds: {
 				// Global minimum threshold
