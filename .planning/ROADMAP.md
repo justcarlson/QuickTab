@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Build Foundation** - WXT/Vite project structure with TypeScript and tooling
 - [x] **Phase 2: Core Migration** - Service worker and URL matching logic to TypeScript
-- [ ] **Phase 3: UI Migration** - Popup and welcome page to vanilla TypeScript
+- [x] **Phase 3: UI Migration** - Popup and welcome page to vanilla TypeScript
 - [ ] **Phase 4: Testing & Quality** - Unit tests, E2E tests, and coverage
 - [ ] **Phase 5: Web Store Compliance** - Privacy policy, permissions audit, store metadata
 - [ ] **Phase 6: CI/CD & Automation** - GitHub Actions, versioning, changelog
@@ -81,10 +81,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 03-01-PLAN.md - Set up CSS design tokens and copy hero images
-- [ ] 03-02-PLAN.md - Implement popup UI with mode toggle and messaging
-- [ ] 03-03-PLAN.md - Implement welcome page with hero and FAQ cards
-- [ ] 03-04-PLAN.md - Verify UI migration (checkpoint)
+- [x] 03-01-PLAN.md - Set up CSS design tokens and copy hero images
+- [x] 03-02-PLAN.md - Implement popup UI with mode toggle and messaging
+- [x] 03-03-PLAN.md - Implement welcome page with hero and FAQ cards
+- [x] 03-04-PLAN.md - Verify UI migration (checkpoint)
 
 ### Phase 4: Testing & Quality
 **Goal**: Establish comprehensive test coverage for regression prevention
@@ -150,7 +150,7 @@ Each phase completes with a PR merge to main and a release tag.
 |-------|----------------|--------|-----------|
 | 1. Build Foundation | 4/4 | Complete | 2026-01-25 |
 | 2. Core Migration | 4/4 | Complete | 2026-01-25 |
-| 3. UI Migration | 0/4 | Not started | - |
+| 3. UI Migration | 4/4 | Complete | 2026-01-25 |
 | 4. Testing & Quality | 0/? | Not started | - |
 | 5. Web Store Compliance | 0/? | Not started | - |
 | 6. CI/CD & Automation | 0/? | Not started | - |
