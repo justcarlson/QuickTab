@@ -57,10 +57,13 @@ Plans:
   5. No runtime dependencies loaded from external URLs (all bundled)
   6. Feature branch merged to main via PR
   7. Phase completion tagged as `v0.12.0-phase-2`
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md - Create shared types and URL matching module
+- [ ] 02-02-PLAN.md - Create storage and tabs Chrome API wrappers
+- [ ] 02-03-PLAN.md - Implement service worker with navigation interception
+- [ ] 02-04-PLAN.md - Verify core migration (checkpoint)
 
 ### Phase 3: UI Migration
 **Goal**: Migrate popup and welcome page from jQuery/Handlebars to vanilla TypeScript
@@ -143,7 +146,7 @@ Each phase completes with a PR merge to main and a release tag.
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Build Foundation | 4/4 | Complete | 2026-01-25 |
-| 2. Core Migration | 0/? | Not started | - |
+| 2. Core Migration | 0/4 | Not started | - |
 | 3. UI Migration | 0/? | Not started | - |
 | 4. Testing & Quality | 0/? | Not started | - |
 | 5. Web Store Compliance | 0/? | Not started | - |
