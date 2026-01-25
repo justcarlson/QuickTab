@@ -12,7 +12,10 @@
 		"prepare": "husky",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
-		"format": "biome format --write ."
+		"format": "biome format --write .",
+		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"test:e2e": "playwright test"
 	},
 	"lint-staged": {
 		"*.{ts,tsx,js,jsx}": [
@@ -34,11 +37,14 @@
 	"homepage": "https://github.com/zendesklabs/QuickTab",
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.12",
+		"@playwright/test": "^1.58.0",
 		"@types/chrome": "^0.0.287",
+		"@vitest/coverage-v8": "^4.0.18",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.5.2",
 		"rollup-plugin-visualizer": "^6.0.5",
 		"typescript": "^5.9.3",
+		"vitest": "^4.0.18",
 		"wxt": "^0.20.13"
 	}
 }
