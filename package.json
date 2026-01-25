@@ -2,9 +2,15 @@
   "name": "QuickTab",
   "version": "0.11.8",
   "description": "Well behaved ticket tabs for Zendesk agents",
-  "main": "Gruntfile.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "postinstall": "wxt prepare",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write ."
   },
   "repository": {
     "type": "git",
@@ -17,29 +23,9 @@
   },
   "homepage": "https://github.com/zendesklabs/QuickTab",
   "devDependencies": {
-    "grunt": "^1.6.1",
-    "grunt-bump": "^0.8.0",
-    "grunt-changelog": "^0.3.2",
-    "grunt-contrib-clean": "^2.0.1",
-    "grunt-contrib-compress": "^2.0.0",
-    "grunt-contrib-concat": "^2.1.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-handlebars": "^3.0.0",
-    "grunt-contrib-jshint": "^3.2.0",
-    "grunt-contrib-uglify": "^5.2.2",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-sass": "^4.0.1",
-    "grunt-webpack": "^1.0.8",
-    "install": "^0.1.8",
-    "json-loader": "^0.5.1",
-    "load-grunt-tasks": "^5.1.0",
-    "node-libs-browser": "^0.5.0",
-    "npm": "^2.9.1",
-    "sass": "^1.97.3",
-    "webpack": "^1.9.4",
-    "webpack-dev-server": "^1.8.2"
-  },
-  "dependencies": {
-    "clean": "^4.0.1"
+    "@biomejs/biome": "^2.3.12",
+    "@types/chrome": "^0.0.287",
+    "typescript": "^5.9.3",
+    "wxt": "^0.20.13"
   }
 }
