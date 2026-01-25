@@ -1,16 +1,35 @@
-### Summary
-Well behaved browser tabs for Zendesk agents
+# QuickTab for Zendesk
+Well-behaved browser tabs for Zendesk agents.
 
-Zendesk QuickTab for Chrome makes tab management a little easier by monitoring when a new browser tab is navigating to a Zendesk Support /agent link. Zendesk QuickTab checks if you have an agent browser tab already open. If you do, QuickTab opens the link on the existing agent tab. This keeps the number of Zendesk Support browser tabs down to just one.
+![QuickTab hero](app/images/pages/welcome/hero-v2.png)
 
-QuickTab begins working as soon as installed. No set up needed!
+QuickTab keeps Zendesk `/agent` links in one calm, focused tab. Click any agent link from anywhere and QuickTab routes it to the Zendesk tab you already have open.
 
-### What permissions does QuickTab need?
-The extension will request permission to read and change your data on all zendesk.com sites. It needs this permission in order to keep your browser tabs in check.
+This is an independent community-maintained project and is not affiliated with Zendesk or Zendesk Labs. The original archived repository lives at https://github.com/zendesklabs/QuickTab.
 
-### UPDATE 2020
-* This extension is not maintained or supported
-* Because of changes on Google's Web Store and increased restrictions, this extension was removed from it
-* However, you can still install this extension locally by:
-    * Unzipping the .zip in ./releases
-    * Following the instructions at https://webkul.com/blog/how-to-install-the-unpacked-extension-in-chrome/
+## Why teams use it
+- Keep one working agent tab instead of a tab pile
+- Jump from chat, email, or docs without losing context
+- Toggle link handling on or off in seconds
+
+## How it works
+QuickTab watches for Zendesk `/agent` URLs. If an agent tab exists, it reuses that tab and navigates there. If not, it opens the link as normal.
+
+## Get started
+1. Download the latest release from https://github.com/zendesklabs/QuickTab/releases.
+2. Unzip the download.
+3. Open `chrome://extensions` and enable Developer mode.
+4. Click "Load unpacked" and select the unzipped folder.
+
+## Using QuickTab
+- Click any Zendesk `/agent` link in Slack, email, or docs and it routes to your open Zendesk tab.
+- Want a fresh tab? Toggle QuickTab off from the toolbar icon, open the link, then toggle it back on.
+
+## Permissions
+QuickTab requests permission to read and change data on `zendesk.com` so it can detect and redirect `/agent` links.
+
+## Status
+This extension is distributed as an unpacked install. It is not currently on the Chrome Web Store.
+
+## Links
+- Original archived repo: https://github.com/zendesklabs/QuickTab

@@ -1,49 +1,72 @@
+@import "variables";
+@import "icons";
+
 html,
 body {
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-family: var(--qt-font-body);
   font-size: 12px;
-  color: #555;
-  margin: 8px;
+  color: var(--qt-text);
+  background: var(--qt-bg);
   margin: 0;
   padding: 0;
   width: 200px;
 }
 
+body {
+  padding: 10px 0 6px;
+}
+
 h1 {
-  background: transparent url('../images/icons/icon38-disabled.png') no-repeat 0 0;
-  background-size: 16px 16px;
-  font-size: 120%;
-  padding-left: 22px;
-  margin: 10px 0 0 10px;
+  /* Layout */
+  display: flex;
+  align-items: center;
+  margin: 6px 12px 2px;
+  
+  /* Typography */
+  font-family: var(--qt-font-heading);
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  
+  /* Icon via pseudo-element */
+  &:before {
+    content: '';
+    @include icon-mask($icon-tab, var(--qt-muted), 16px);
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
 }
 
 h1.enabled {
-  background-image: url('../images/icons/icon38-enabled.png')
+  &:before {
+    background-color: var(--qt-accent);
+  }
 }
 
 h2 {
-  border-bottom: 1px solid #ddd;
-  font-size: 95%;
-  font-weight: normal;
-  color: #999;
-  margin: 0 10px 5px;
-  padding-bottom: 5px;
-  width: 90%;
+  border-bottom: 1px solid var(--qt-border);
+  font-family: var(--qt-font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--qt-muted);
+  margin: 12px 12px 6px;
+  padding-bottom: 6px;
 }
 
 #app-status {
-  color: #B0B0B0;
-  font-size: 90%;
-  margin: 0 0 0 10px;
-  padding: 2px 0 20px 22px;
+  color: var(--qt-muted);
+  font-size: 11px;
+  margin: 0 0 10px 12px;
+  padding: 2px 0 0 24px;
 }
 
 #settings-url-types {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 #settings-help {
-  padding-bottom: 10px;
+  padding-bottom: 6px;
 }
 
 ul {
@@ -53,31 +76,49 @@ ul {
 }
 
 li {
-  padding: 0 8px;
-  margin: 0;
+  padding: 0 6px;
+  margin: 4px 6px;
+  border-radius: 10px;
+  border: 1px solid transparent;
 }
 
 li:hover {
-  background-color: #f2f2f2;
+  background-color: var(--qt-accent-soft);
+  border-color: var(--qt-border);
 }
 
 li a {
-  padding: 10px 0 10px 2px;
-  display: block;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  box-sizing: border-box;
   text-decoration: none;
-  color: #555;
-}
+  color: var(--qt-text);
 
-li a:hover,
-li a:focus {
-  color: #041521;
-  outline: 0;
+  &:focus-visible {
+    outline: 2px solid rgba(200, 240, 90, 0.6);
+    outline-offset: 2px;
+  }
+  
+  &:hover,
+  &:focus {
+    color: var(--qt-accent);
+    outline: 0;
+  }
 }
 
 li a.disabled {
-  color: lightGray;
+  color: var(--qt-muted);
 }
 
 li a.enabled {
-  background: transparent url('../images/icons/checkmark.png') no-repeat 155px 11px;
+  /* Checkmark Icon handled by flexbox justify-content: space-between */
+  &:after {
+    content: '';
+    @include icon-mask($icon-checkmark, var(--qt-accent), 12px);
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
 }

@@ -1,235 +1,140 @@
+@import "variables";
+
 body {
-  background: transparent url('../images/pages/welcome/hero.png') no-repeat 50% 0;
-  padding-top: 50px;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
+  --welcome-ink: #17494d;
+  --welcome-muted: #4c6a6d;
+  --welcome-border: #d8e3e4;
+  --welcome-surface: #ffffff;
+  --welcome-accent: #1f73b7;
+  --welcome-accent-strong: #155d94;
+  --welcome-accent-soft: #e7f1fb;
+
+  background: radial-gradient(circle at top, #ffffff 0%, #f3f6f8 45%, #edf1f4 100%);
+  padding: 72px 24px 96px;
+  font-family: var(--qt-font-body);
+  font-size: 15px;
+  line-height: 24px;
   text-align: center;
-  color: #5c5c5c;
+  color: var(--welcome-ink);
 }
 
 #feature-name {
-  font-weight: bold;
+  font-family: var(--qt-font-heading);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--welcome-muted);
 }
 
 #feature-lead {
-  padding: 0 30%;
+  max-width: 720px;
+  margin: 18px auto 0;
+  color: var(--welcome-muted);
 }
 
 h1 {
-  font-size: 36px;
-  font-weight: normal;
-  line-height: 38px;
+  font-family: var(--qt-font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 48px;
+  margin: 12px 0 14px;
 }
 
-p img {
-  width: 21px;
-  vertical-align: middle;
+h3 {
+  font-family: var(--qt-font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px;
 }
 
-#feature-faq {
-  width: 840px;
+p {
+  color: var(--welcome-muted);
+}
+
+/* FAQ Grid Layout */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 960px;
+  margin: 44px auto 32px;
   text-align: left;
-  margin: 0 auto;
 }
 
-#feature-faq td {
-  width: 415px;
-  vertical-align: top;
+.faq-card {
+  background: var(--welcome-surface);
+  border: 1px solid var(--welcome-border);
+  border-radius: 18px;
+  padding: 24px 26px;
+  box-shadow: 0 18px 40px rgba(16, 30, 36, 0.08);
 }
 
-#feature-faq td:first-of-type {
-  padding-right: 45px;
-}
-
+/* Hero Section */
 #hero-container {
-  display: 0 auto;
-  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto 52px;
 }
 
-#hero-left {
-  width: 333px;
-  height: 249px;
-  background: transparent url('../images/pages/welcome/illu-2.png') no-repeat 0 0;
-  background-size: 333px 249px;
-  display: inline-block;
+#hero-image {
+  display: block;
+  width: min(1040px, 100%);
 }
 
-#hero-right {
-  width: 566px;
-  height: 248px;
-  display: inline-block;
+#hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  border: 1px solid var(--welcome-border);
+  box-shadow: 0 30px 70px rgba(16, 30, 36, 0.18);
+  background: var(--welcome-surface);
 }
 
-#tab-chrome {
-  background: transparent url('../images/pages/welcome/illu-3.png') no-repeat 0 0;
-  background-size: 566px 248px;
-  width: 566px;
-  height: 118px;
-  position: relative;
-  z-index: -20;
-}
-
-#new-tab {
-  background: transparent url('../images/pages/welcome/new-tab.png') no-repeat 0 0;
-  background-size: 247px 37px;
-  width: 247px;
-  height: 37px;
-  position: relative;
-  -webkit-animation: slide-in-new-tab 10s;
-  -webkit-animation-iteration-count: infinite;
-  left: 302px;
-  top: -9px;
-  z-index: -10;
-}
-
-#old-tab-body {
-  background: transparent url('../images/pages/welcome/old-ticket-detail.png') no-repeat 0 0;
-  width: 566px;
-  height: 139px;
-  background-size: 385px 84px;
-  float: left;
-  margin-top: -82px;
-  margin-left: 52px;
-  -webkit-animation: hide-old-tab 10s;
-  -webkit-animation-iteration-count: infinite;
-}
-
-#mouse-pointer {
-  background: transparent url('../images/pages/welcome/mouse-pointer.png') no-repeat 0 0;
-  width: 33px;
-  height: 42px;
-  position: relative;
-  background-size: 30px;
-  top: 90px;
-  left: 35px;
-  -webkit-animation: mouse-move 10s;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-iteration-count: infinite;
-}
-
-#new-tab-body {
-  background: transparent url('../images/pages/welcome/new-ticket-detail.png') no-repeat 0 0;
-  position: relative;
-  width: 566px;
-  height: 139px;
-  background-size: 555px 132px;
-  top: -46px;
-  z-index: -10;
-  -webkit-animation: show-new-tab-body 30s;
-  -webkit-animation-iteration-count: infinite;
-}
-
-#click-ring {
-  border: 5px solid #78A300;
-  -webkit-border-radius: 70px;
-  height: 70px;
-  width: 70px;
-  position: relative;
-  left: 228px;
-  top: 58px;
-  -webkit-animation: pulsate 10s ease-out;
-  -webkit-animation-iteration-count: infinite;
-  opacity: 0.0
-}
-
-@-webkit-keyframes mouse-move {
-  0% {
-    top: 90px;
-    left: 35px;
-  }
-  7% {
-    top: 20px;
-    left: 255px;
-  }
-  100% {
-    top: 20px;
-    left: 255px;
-  }
-}
-
-@-webkit-keyframes pulsate {
-  0% {
-    -webkit-transform: scale(0, 0);
-    opacity: 0.0;
-  }
-  4% {
-    -webkit-transform: scale(0.1, 0.1);
-    opacity: 0.0;
-  }
-  15% {
-    -webkit-transform: scale(1.2, 1.2);
-    opacity: 1.0;
-  }
-  20% {
-    -webkit-transform: scale(1.2, 1.2);
-    opacity: 0.0;
-  }
-  100% {
-    -webkit-transform: scale(1.2, 1.2);
-    opacity: 0.0;
-  }
-}
-
-@-webkit-keyframes slide-in-new-tab {
-  0% {
-    top: -9px;
-  }
-  7% {
-    top: -9px;
-  }
-  15% {
-    top: -45px;
-  }
-  100% {
-    top: -45px;
-  }
-}
-
-@-webkit-keyframes hide-old-tab {
-  7% {
-    background: transparent url('../images/pages/welcome/old-ticket-detail.png') no-repeat 0 0;
-    background-size: 385px 84px;
-  }
-  8% {
-    background: none;
-  }
-  100% {
-    background: none;
-  }
-}
-
-@-webkit-keyframes show-new-tab-body {
-  2% {
-    z-index: -10;
-  }
-  3% {
-    z-index: 10;
-  }
-  100% {
-    z-index: -10;
-  }
-}
-
+/* Buttons */
 a.button {
-  color: #fff;
+  display: inline-block;
+  color: #ffffff;
   cursor: pointer;
-  background-color: #ffa100;
-  border: 1px solid #af6f00;
-  border-radius: 4px;
-  padding: 16px 40px;
-  font-size: 110%;
-}
-
-a.button:hover,
-a.button:focus {
-  background-color: #ffab1a;
+  background-color: var(--welcome-accent);
+  border: 1px solid var(--welcome-accent-strong);
+  border-radius: 12px;
+  padding: 14px 34px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 14px 28px rgba(31, 115, 183, 0.24);
   text-decoration: none;
-  background-position: 0 -60px;
+
+  &:hover,
+  &:focus {
+    background-color: var(--welcome-accent-strong);
+    outline: 0;
+    box-shadow: 0 0 0 3px var(--welcome-accent-soft);
+  }
+
+  &:active {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18);
+  }
 }
 
-a.button:active {
-  background-image: none;
-  outline: 0;
-  box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.15);
+/* Responsive */
+@media (max-width: 900px) {
+  body {
+    padding: 48px 16px 72px;
+  }
+
+  #feature-lead {
+    padding: 0;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+    margin: 32px auto 24px;
+  }
+
+  #hero-image {
+    width: 100%;
+  }
 }
