@@ -333,6 +333,112 @@ describe("state persistence (TEST-08)", () => {
 	});
 });
 
+describe("service worker termination cycle (TEST-08 explicit)", () => {
+	/**
+	 * TEST-08: Verify state persistence across service worker lifecycle.
+	 *
+	 * Manifest V3 service workers can terminate at any time. The extension must:
+	 * 1. Store all state in chrome.storage.local (not in-memory)
+	 * 2. Load state fresh on each handler invocation
+	 * 3. Never rely on module-level variables for persistence
+	 */
+
+	beforeEach(() => {
+		fakeBrowser.reset();
+		vi.resetModules();
+	});
+
+	afterEach(() => {
+		vi.clearAllMocks();
+	});
+
+	it("simulates full termination/restart cycle with preserved state", async () => {
+		// PHASE 1: Simulate active service worker saving state
+		const { saveState: saveState1, loadState: loadState1 } = await import("@/src/utils/storage");
+
+		// Service worker tracks some tabs
+		await saveState1({
+			zendeskTabs: {
+				100: { subdomain: "acme", lastActive: Date.now() - 5000 },
+				200: { subdomain: "acme", lastActive: Date.now() },
+			},
+		});
+
+		// Verify state was saved
+		const savedState = await loadState1();
+		expect(Object.keys(savedState.zendeskTabs)).toHaveLength(2);
+
+		// PHASE 2: Simulate service worker termination (module unloaded)
+		vi.resetModules();
+
+		// PHASE 3: Simulate service worker restart (fresh import)
+		const { loadState: loadState2 } = await import("@/src/utils/storage");
+
+		// State should be fully restored from storage
+		const restoredState = await loadState2();
+		expect(Object.keys(restoredState.zendeskTabs)).toHaveLength(2);
+		expect(restoredState.zendeskTabs[100].subdomain).toBe("acme");
+		expect(restoredState.zendeskTabs[200].subdomain).toBe("acme");
+	});
+
+	it("verifies no in-memory state leakage", async () => {
+		// This test ensures the storage module doesn't cache state in memory
+
+		// First, set up storage state
+		await fakeBrowser.storage.local.set({
+			[STORAGE_KEY]: {
+				zendeskTabs: { 1: { subdomain: "test", lastActive: 1000 } },
+			},
+		});
+
+		// Import and read
+		const { loadState: loadState1 } = await import("@/src/utils/storage");
+		const state1 = await loadState1();
+		expect(state1.zendeskTabs[1]).toBeDefined();
+
+		// Modify storage directly (simulating another context)
+		await fakeBrowser.storage.local.set({
+			[STORAGE_KEY]: {
+				zendeskTabs: { 2: { subdomain: "modified", lastActive: 2000 } },
+			},
+		});
+
+		// Without resetModules, loadState should read FRESH from storage
+		const state2 = await loadState1();
+		expect(state2.zendeskTabs[1]).toBeUndefined(); // Old tab gone
+		expect(state2.zendeskTabs[2]).toBeDefined(); // New tab present
+		expect(state2.zendeskTabs[2].subdomain).toBe("modified");
+	});
+
+	it("handles rapid termination/restart cycles", async () => {
+		// Simulates rapid service worker restarts (can happen under memory pressure)
+
+		for (let cycle = 0; cycle < 3; cycle++) {
+			vi.resetModules();
+
+			const { saveState, loadState } = await import("@/src/utils/storage");
+
+			// Each cycle, update state
+			await saveState({
+				zendeskTabs: {
+					[cycle]: { subdomain: `cycle-${cycle}`, lastActive: cycle * 1000 },
+				},
+			});
+
+			const state = await loadState();
+			expect(state.zendeskTabs[cycle].subdomain).toBe(`cycle-${cycle}`);
+		}
+
+		// Final verification after all cycles
+		vi.resetModules();
+		const { loadState } = await import("@/src/utils/storage");
+		const finalState = await loadState();
+
+		// Last cycle's state should persist
+		expect(finalState.zendeskTabs[2].subdomain).toBe("cycle-2");
+	});
+});
+
 describe("findMostRecentTab logic (behavior test)", () => {
 	beforeEach(() => {
 		fakeBrowser.reset();
