@@ -1,31 +1,31 @@
 {
-  "name": "QuickTab",
-  "version": "0.11.8",
-  "description": "Well behaved ticket tabs for Zendesk agents",
-  "type": "module",
-  "scripts": {
-    "dev": "wxt",
-    "build": "wxt build",
-    "zip": "wxt zip",
-    "postinstall": "wxt prepare",
-    "lint": "biome check .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format --write ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/zendesklabs/QuickTab.git"
-  },
-  "author": "Zendesk",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zendesklabs/QuickTab/issues"
-  },
-  "homepage": "https://github.com/zendesklabs/QuickTab",
-  "devDependencies": {
-    "@biomejs/biome": "^2.3.12",
-    "@types/chrome": "^0.0.287",
-    "typescript": "^5.9.3",
-    "wxt": "^0.20.13"
-  }
+	"name": "QuickTab",
+	"version": "0.11.8",
+	"description": "Well behaved ticket tabs for Zendesk agents",
+	"type": "module",
+	"scripts": {
+		"dev": "wxt",
+		"build": "wxt build",
+		"zip": "wxt zip",
+		"postinstall": "wxt prepare",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/zendesklabs/QuickTab.git"
+	},
+	"author": "Zendesk",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/zendesklabs/QuickTab/issues"
+	},
+	"homepage": "https://github.com/zendesklabs/QuickTab",
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.12",
+		"@types/chrome": "^0.0.287",
+		"typescript": "^5.9.3",
+		"wxt": "^0.20.13"
+	}
 }
