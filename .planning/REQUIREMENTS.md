@@ -156,10 +156,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GIT-06 | All Phases | Pending |
 
 **Coverage:**
-- v1 requirements: 45 total
-- Mapped to phases: 45
-- Unmapped: 0 ✓
+- v1 requirements: 44 total (38 deliverable + 6 workflow constraints)
+- Mapped to phases: 44
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-25*
-*Last updated: 2026-01-25 after initial definition*
+*Last updated: 2026-01-25 after roadmap creation*
