@@ -8,9 +8,18 @@
 		"build": "wxt build",
 		"zip": "wxt zip",
 		"postinstall": "wxt prepare",
+		"prepare": "husky",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"format": "biome format --write ."
+	},
+	"lint-staged": {
+		"*.{ts,tsx,js,jsx}": [
+			"biome check --write"
+		],
+		"*.{json,html,css}": [
+			"biome format --write"
+		]
 	},
 	"repository": {
 		"type": "git",
@@ -25,6 +34,8 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.12",
 		"@types/chrome": "^0.0.287",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.5.2",
 		"typescript": "^5.9.3",
 		"wxt": "^0.20.13"
 	}
