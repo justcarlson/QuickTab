@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** Phase 2 Complete - Ready for Phase 3 (UI Migration)
+**Current focus:** Phase 3 (UI Migration) - Plan 1 complete
 
 ## Current Position
 
-Phase: 2 of 6 (Core Migration) - COMPLETE
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-25 - Completed 02-04-PLAN.md
+Phase: 3 of 6 (UI Migration)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-25 - Completed 03-01-PLAN.md
 
-Progress: [████████████░░░░░░░░] 60%
+Progress: [█████████████░░░░░░░] 65%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 4 min
-- Total execution time: 29 min
+- Total plans completed: 9
+- Average duration: 3 min
+- Total execution time: 30 min
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: [████████████░░░░░░░░] 60%
 |-------|-------|-------|----------|
 | 1 | 4/4 | 18 min | 4.5 min |
 | 2 | 4/4 | 11 min | 2.8 min |
+| 3 | 1/3 | 1 min | 1.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (2 min), 02-02 (3 min), 02-03 (5 min), 02-04 (<1 min)
-- Trend: Verification plan fast due to checkpoint-only nature
+- Last 5 plans: 02-02 (3 min), 02-03 (5 min), 02-04 (<1 min), 03-01 (1 min)
+- Trend: Asset/setup plans fast; logic plans take longer
 
 *Updated after each plan completion*
 
@@ -64,6 +65,8 @@ Recent decisions affecting current work:
 - [02-03]: Most recently active tab selected via lastActive timestamp
 - [02-03]: Message handler uses promise-based async response pattern
 - [02-04]: Navigation interception deferred - verified with Zendesk access later
+- [03-01]: CSS custom properties with prefers-color-scheme for automatic dark mode
+- [03-01]: Keep both PNG and WebP hero images for browser compatibility
 
 ### Pending Todos
 
@@ -75,8 +78,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25T19:16:11Z
-Stopped at: Completed 02-04-PLAN.md (Phase 2 complete)
+Last session: 2026-01-25T19:56:03Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
@@ -116,3 +119,18 @@ Phase 2 (Core Migration) is complete. All 4 plans executed successfully:
 - Extension loads in Chrome without errors
 - Service worker starts and logs correctly
 - Navigation interception deferred (requires Zendesk access)
+
+## Phase 3 Progress
+
+Phase 3 (UI Migration) in progress:
+
+| Plan | Name | Duration | Status |
+|------|------|----------|--------|
+| 03-01 | Design Tokens & Assets | 1 min | Complete |
+| 03-02 | Popup Implementation | - | Pending |
+| 03-03 | Welcome Page | - | Pending |
+
+**Assets delivered:**
+- entrypoints/popup/style.css - CSS design tokens with dark mode
+- public/images/pages/welcome/hero-v2.png - Hero PNG image
+- public/images/pages/welcome/hero-v2.webp - Hero WebP image
