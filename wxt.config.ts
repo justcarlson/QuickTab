@@ -1,3 +1,4 @@
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "wxt";
 
 export default defineConfig({
@@ -13,7 +14,18 @@ export default defineConfig({
 		},
 		default_locale: "en",
 	},
-	vite: () => ({
+	vite: (env) => ({
+		plugins:
+			env.command === "build" && process.env.ANALYZE
+				? [
+						visualizer({
+							filename: ".output/stats.html",
+							template: "treemap",
+							gzipSize: true,
+							brotliSize: true,
+						}),
+					]
+				: [],
 		build: {
 			sourcemap: true,
 		},
