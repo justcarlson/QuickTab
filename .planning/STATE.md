@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 ## Current Position
 
 Phase: 2 of 6 (Core Migration)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-25 - Completed 02-01-PLAN.md
+Last activity: 2026-01-25 - Completed 02-02-PLAN.md
 
-Progress: [████████░░░░░░░░░░░░] 42%
+Progress: [█████████░░░░░░░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 4 min
-- Total execution time: 20 min
+- Total execution time: 23 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 | 4/4 | 18 min | 4.5 min |
-| 2 | 1/4 | 2 min | 2 min |
+| 2 | 2/4 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (9 min), 01-03 (2 min), 01-04 (3 min), 02-01 (2 min)
+- Last 5 plans: 01-03 (2 min), 01-04 (3 min), 02-01 (2 min), 02-02 (3 min)
 - Trend: Utility module plans execute quickly
 
 *Updated after each plan completion*
@@ -57,6 +57,9 @@ Recent decisions affecting current work:
 - [02-01]: Native URL constructor for parsing, regex for route matching only
 - [02-01]: Pathname-only matching ignores query params and hash
 - [02-01]: Record<number, T> for tab tracking (JSON-serializable)
+- [02-02]: Silent fallback with console.warn on storage errors
+- [02-02]: Tab operations return boolean success for caller cleanup
+- [02-02]: Default URL detection mode is 'allUrls'
 
 ### Pending Todos
 
@@ -68,8 +71,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25T18:43:19Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-01-25T18:44:02Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
@@ -90,8 +93,12 @@ Phase 1 (Build Foundation) is complete. All 4 plans executed successfully:
 | Plan | Name | Duration | Status |
 |------|------|----------|--------|
 | 02-01 | URL Types & Matching | 2 min | Complete |
-| 02-02 | Storage Module | - | Pending |
+| 02-02 | Chrome API Wrappers | 3 min | Complete |
 | 02-03 | Service Worker | - | Pending |
 | 02-04 | Core Migration Verification | - | Pending |
 
-**Ready:** src/utils/types.ts and src/utils/url-matching.ts ready for use
+**Ready:** All utility modules complete:
+- src/utils/types.ts - Shared type definitions
+- src/utils/url-matching.ts - URL pattern detection
+- src/utils/storage.ts - Chrome storage wrapper
+- src/utils/tabs.ts - Chrome tabs wrapper
