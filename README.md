@@ -26,7 +26,24 @@ QuickTab watches for Zendesk `/agent` URLs. If an agent tab exists, it reuses th
 - Want a fresh tab? Toggle QuickTab off from the toolbar icon, open the link, then toggle it back on.
 
 ## Permissions
-QuickTab requests permission to read and change data on `zendesk.com` so it can detect and redirect `/agent` links.
+
+QuickTab requests minimal permissions to function:
+
+| Permission | Why We Need It |
+|------------|----------------|
+| **zendesk.com access** | To detect Zendesk `/agent` navigation and route to existing tabs |
+| **Tab access** | To find your existing Zendesk tabs and focus them when routing |
+| **Storage** | To save your detection mode preference between browser sessions |
+| **Web navigation** | To intercept link clicks before they open new tabs |
+
+### What We Don't Request
+
+- No access to other websites
+- No access to your browsing history
+- No access to read page content
+- No access to cookies or passwords
+
+For complete details, see our [Privacy Policy](PRIVACY.md).
 
 ## Status
 This extension is distributed as an unpacked install. It is not currently on the Chrome Web Store.
