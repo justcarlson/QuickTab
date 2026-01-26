@@ -5,7 +5,7 @@ export default defineConfig({
 	manifest: {
 		name: "__MSG_appName__",
 		description: "__MSG_appDescription__",
-		permissions: ["webNavigation", "tabs", "scripting", "storage"],
+		permissions: ["webNavigation", "tabs", "storage"],
 		host_permissions: ["http://*.zendesk.com/*", "https://*.zendesk.com/*"],
 		icons: {
 			16: "images/icons/icon-16.png",
@@ -27,7 +27,11 @@ export default defineConfig({
 					]
 				: [],
 		build: {
-			sourcemap: true,
+			sourcemap: env.mode === "production" ? "hidden" : true,
 		},
 	}),
+	zip: {
+		artifactTemplate: "quicktab-v{{version}}-{{browser}}.zip",
+		exclude: ["**/*.map"],
+	},
 });

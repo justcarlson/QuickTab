@@ -121,10 +121,12 @@ Plans:
   4. Store listing has updated description and screenshots
   5. Feature branch merged to main via PR
   6. Phase completion tagged as `v0.12.0-phase-5`
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
+- [ ] 05-01-PLAN.md — Create privacy policy and clean up manifest configuration
+- [ ] 05-02-PLAN.md — Update README permissions and create store metadata
+- [ ] 05-03-PLAN.md — Verify compliance and create PR
 
 ### Phase 6: CI/CD & Automation
 **Goal**: Automate testing, building, and release workflows
