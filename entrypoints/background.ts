@@ -22,6 +22,17 @@ import type { RouteMatch, UrlDetectionMode, ZendeskTabInfo } from "@/src/utils/t
 import { buildZendeskUrl, isZendeskAgentUrl, matchZendeskUrl } from "@/src/utils/url-matching";
 
 /**
+ * Deduplication: Track recently processed navigations to prevent double-firing.
+ * Key: "tabId:url", Value: timestamp
+ * NOTE: This in-memory state is acceptable per MV3 patterns because:
+ * - It's only used for short-term deduplication (cleared after 1 second)
+ * - Loss on service worker termination is acceptable (just means no dedup)
+ * - Not persisted to storage (would add unnecessary latency)
+ */
+const recentNavigations = new Map<string, number>();
+const NAVIGATION_DEDUPE_MS = 1000; // 1 second window for deduplication
+
+/**
  * Message types for popup communication
  */
 interface GetStatusMessage {
@@ -37,6 +48,37 @@ type BackgroundMessage = GetStatusMessage | SetModeMessage;
 
 interface GetStatusResponse {
 	mode: UrlDetectionMode;
+}
+
+/**
+ * Check if a navigation was recently processed (deduplication).
+ * If not recently processed, marks it as processed and returns false.
+ * If already processed within the dedupe window, returns true.
+ *
+ * @param tabId - Tab ID of the navigation
+ * @param url - URL being navigated to
+ * @returns true if this navigation should be skipped (already processed)
+ */
+function isDuplicateNavigation(tabId: number, url: string): boolean {
+	const key = `${tabId}:${url}`;
+	const now = Date.now();
+
+	// Clean up old entries (older than dedupe window)
+	for (const [k, timestamp] of recentNavigations.entries()) {
+		if (now - timestamp > NAVIGATION_DEDUPE_MS) {
+			recentNavigations.delete(k);
+		}
+	}
+
+	// Check if recently processed
+	const lastProcessed = recentNavigations.get(key);
+	if (lastProcessed && now - lastProcessed < NAVIGATION_DEDUPE_MS) {
+		return true; // Skip this duplicate
+	}
+
+	// Mark as processed
+	recentNavigations.set(key, now);
+	return false;
 }
 
 /**
@@ -63,39 +105,63 @@ async function setActionIcon(mode: UrlDetectionMode): Promise<void> {
 }
 
 /**
- * Find the most recently active tab for a given subdomain.
+ * Find the most recently active tab for a given subdomain from LIVE browser tabs.
  * Per CONTEXT.md: Multiple matching tabs use most recently active tab.
  *
- * @param zendeskTabs - Record of tab info keyed by tab ID
+ * CRITICAL: This queries LIVE tabs and validates they have /agent/* URLs,
+ * matching the original extension behavior. The storage state is only used
+ * for lastActive timestamps when multiple tabs match.
+ *
  * @param subdomain - Zendesk subdomain to match
  * @param excludeTabId - Tab ID to exclude from search (the source tab)
- * @returns Tab ID of most recently active tab, or null if none found
+ * @param zendeskTabs - Storage state for lastActive timestamps
+ * @returns Tab object of most recently active tab, or null if none found
  */
-function findMostRecentTab(
-	zendeskTabs: Record<number, ZendeskTabInfo>,
+async function findExistingAgentTab(
 	subdomain: string,
 	excludeTabId: number,
-): number | null {
-	let mostRecentTabId: number | null = null;
-	let mostRecentTime = 0;
+	zendeskTabs: Record<number, ZendeskTabInfo>,
+): Promise<chrome.tabs.Tab | null> {
+	// Query LIVE tabs matching this subdomain's agent interface
+	// This matches original behavior: tabs.query('*://' + subdomain + '.zendesk.com/agent/*')
+	const pattern = `*://${subdomain}.zendesk.com/agent/*`;
+	const liveTabs = await chrome.tabs.query({ url: pattern });
 
-	for (const [tabIdStr, info] of Object.entries(zendeskTabs)) {
-		const tabId = Number(tabIdStr);
-		if (tabId === excludeTabId) continue;
-		if (info.subdomain !== subdomain) continue;
+	if (liveTabs.length === 0) {
+		return null;
+	}
 
-		if (info.lastActive > mostRecentTime) {
-			mostRecentTime = info.lastActive;
-			mostRecentTabId = tabId;
+	// Filter out the source tab and find the most recently active
+	let bestTab: chrome.tabs.Tab | null = null;
+	let bestTime = 0;
+
+	for (const tab of liveTabs) {
+		if (!tab.id || tab.id === excludeTabId) continue;
+		if (!tab.url) continue;
+
+		// Additional validation: URL must match agent interface pattern
+		// (defensive check - query should already filter this)
+		if (!isZendeskAgentUrl(tab.url)) continue;
+
+		// Use storage state for lastActive timestamp if available, otherwise use 0
+		const lastActive = zendeskTabs[tab.id]?.lastActive ?? 0;
+
+		if (lastActive > bestTime || bestTab === null) {
+			bestTime = lastActive;
+			bestTab = tab;
 		}
 	}
 
-	return mostRecentTabId;
+	return bestTab;
 }
 
 /**
  * Handle navigation interception and tab routing.
- * Core routing logic per existing extension behavior.
+ * Core routing logic matching original extension behavior:
+ * 1. Query LIVE tabs for matching subdomain + /agent/* URL
+ * 2. Find first matching tab (or most recently active if tracked)
+ * 3. Update that tab's URL and focus it
+ * 4. Close the source tab
  *
  * @param sourceTabId - Tab ID that initiated the navigation
  * @param sourceUrl - URL being navigated to
@@ -108,38 +174,31 @@ async function handleNavigation(
 ): Promise<void> {
 	const state = await loadState();
 
-	// Find existing tab for this subdomain (not the source tab)
-	const existingTabId = findMostRecentTab(state.zendeskTabs, match.subdomain, sourceTabId);
+	// Find existing LIVE agent tab for this subdomain (not the source tab)
+	const existingTab = await findExistingAgentTab(match.subdomain, sourceTabId, state.zendeskTabs);
 
-	if (existingTabId !== null) {
+	if (existingTab?.id) {
 		// Route to existing tab
 		const targetUrl = buildZendeskUrl(match);
-		const updated = await updateTabUrl(existingTabId, targetUrl);
+		const updated = await updateTabUrl(existingTab.id, targetUrl);
 
 		if (updated) {
-			await focusTab(existingTabId);
+			await focusTab(existingTab.id);
 			await closeTab(sourceTabId);
 
 			// Update lastActive for the target tab
-			state.zendeskTabs[existingTabId] = {
-				...state.zendeskTabs[existingTabId],
+			state.zendeskTabs[existingTab.id] = {
+				subdomain: match.subdomain,
 				lastActive: Date.now(),
 			};
 
 			// Remove source tab from tracking (it's now closed)
 			delete state.zendeskTabs[sourceTabId];
 			await saveState(state);
-		} else {
-			// Target tab no longer exists, clean up and track source tab instead
-			delete state.zendeskTabs[existingTabId];
-			state.zendeskTabs[sourceTabId] = {
-				subdomain: match.subdomain,
-				lastActive: Date.now(),
-			};
-			await saveState(state);
 		}
+		// If update failed, tab no longer exists - just let source tab continue
 	} else {
-		// No existing tab, track this one
+		// No existing agent tab found, track this one as a new agent tab
 		state.zendeskTabs[sourceTabId] = {
 			subdomain: match.subdomain,
 			lastActive: Date.now(),
@@ -250,6 +309,10 @@ export default defineBackground(() => {
 			// Only handle main frame navigation
 			if (details.frameId !== 0) return;
 
+			// Deduplication: Skip if we recently processed this exact navigation
+			// This prevents double-firing from onBeforeNavigate + onCommitted
+			if (isDuplicateNavigation(details.tabId, details.url)) return;
+
 			const detection = await getUrlDetection();
 			if (detection === "noUrls") return;
 
@@ -272,6 +335,10 @@ export default defineBackground(() => {
 		async (details) => {
 			// Only handle main frame navigation
 			if (details.frameId !== 0) return;
+
+			// Deduplication: Skip if we recently processed this exact navigation
+			// This prevents double-firing from onBeforeNavigate + onCommitted
+			if (isDuplicateNavigation(details.tabId, details.url)) return;
 
 			const detection = await getUrlDetection();
 			if (detection === "noUrls") return;
