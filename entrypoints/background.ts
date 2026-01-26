@@ -301,43 +301,29 @@ export default defineBackground(() => {
 	});
 
 	/**
-	 * Main navigation interception - fires before navigation starts
-	 * Handles user-initiated navigation
-	 */
-	chrome.webNavigation.onBeforeNavigate.addListener(
-		async (details) => {
-			// Only handle main frame navigation
-			if (details.frameId !== 0) return;
-
-			// Deduplication: Skip if we recently processed this exact navigation
-			// This prevents double-firing from onBeforeNavigate + onCommitted
-			if (isDuplicateNavigation(details.tabId, details.url)) return;
-
-			const detection = await getUrlDetection();
-			if (detection === "noUrls") return;
-
-			const match = matchZendeskUrl(details.url);
-			if (!match) return;
-
-			// For ticketUrls mode, only intercept ticket routes
-			if (detection === "ticketUrls" && match.type !== "ticket") return;
-
-			await handleNavigation(details.tabId, details.url, match);
-		},
-		{ url: [{ hostSuffix: "zendesk.com" }] },
-	);
-
-	/**
-	 * Backup navigation interception - fires after navigation commits
-	 * Handles redirects and programmatic navigation
+	 * Navigation interception - fires after navigation commits
+	 * CRITICAL: Only intercept LINK CLICKS, not typed/pasted URLs
+	 *
+	 * Per original extension behavior: QuickTab should only merge tabs when
+	 * user clicks a link that opens a new tab, NOT when they manually
+	 * type/paste a URL in the address bar.
+	 *
+	 * transitionType values:
+	 * - "link" = User clicked a link (intercept this)
+	 * - "typed" = Typed/pasted in address bar (DO NOT intercept)
+	 * - "auto_bookmark" = Clicked a bookmark (DO NOT intercept)
+	 * - "reload", "form_submit", etc. (DO NOT intercept)
 	 */
 	chrome.webNavigation.onCommitted.addListener(
 		async (details) => {
 			// Only handle main frame navigation
 			if (details.frameId !== 0) return;
 
+			// CRITICAL: Only intercept LINK CLICKS
+			// This prevents hijacking manually typed/pasted URLs
+			if (details.transitionType !== "link") return;
+
 			// Deduplication: Skip if we recently processed this exact navigation
-			// This prevents double-firing from onBeforeNavigate + onCommitted
 			if (isDuplicateNavigation(details.tabId, details.url)) return;
 
 			const detection = await getUrlDetection();
