@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** Phase 5 (Web Store Compliance) - Documentation complete
+**Current focus:** Phase 5 (Web Store Compliance) - Privacy & Store Docs complete
 
 ## Current Position
 
 Phase: 5 of 6 (Web Store Compliance)
-Plan: 2 of 3 in current phase
+Plan: 2 of 3 in current phase (05-01, 05-02 complete)
 Status: In progress
-Last activity: 2026-01-25 - Completed 05-02-PLAN.md
+Last activity: 2026-01-26 - Completed 05-01-PLAN.md
 
 Progress: [███████████████████░] 95%
 
@@ -34,8 +34,8 @@ Progress: [███████████████████░] 95%
 | 5 | 2/3 | 2 min | 1.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-04 (3 min), 04-05 (7 min), 04-06 (4 min), 05-02 (2 min)
-- Trend: Documentation plans executing quickly
+- Last 5 plans: 04-05 (7 min), 04-06 (4 min), 05-02 (2 min), 05-01 (3 min)
+- Trend: Documentation/compliance plans executing quickly
 
 *Updated after each plan completion*
 
@@ -89,6 +89,8 @@ Recent decisions affecting current work:
 - [04-06]: Exclude test artifacts from biome linting (coverage/, playwright-report/, test-results/)
 - [04-06]: Exclude entrypoints/background.ts from coverage (tested via behavior tests & E2E)
 - [04-06]: Use setText helper instead of non-null assertions in welcome/main.ts
+- [05-01]: Use zip.exclude for map files (excludeSources only applies to sources ZIP)
+- [05-01]: sourcemap: "hidden" generates maps for debugging but excludes sourceMappingURL
 - [05-02]: Table format for permissions - easier to scan than prose
 - [05-02]: What We Don't Request section - proactive transparency
 - [05-02]: Store description leads with pain point per research findings
@@ -103,8 +105,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25 16:30
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-01-26 00:33
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
 
 ## Phase 1 Summary
