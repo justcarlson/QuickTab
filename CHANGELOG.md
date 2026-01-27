@@ -1,3 +1,17 @@
+### v0.12.2 (2026-01-27)
+
+Fix performance degradation when DLP/security extensions (like Incydr) are active.
+
+**Fixed**
+* Reduce chrome API calls from O(N) to O(1) per tab navigation
+* Parallelize icon updates when changing modes
+* Add `setTabIcon()` for single-tab updates instead of updating all tabs
+
+**Technical Details**
+* DLP extensions add latency to each `chrome.*` API call
+* Previously, every navigation triggered N+1 API calls (query + N icon updates)
+* Now only the specific navigated tab is updated
+
 ### v0.12.1 (2026-01-27)
 
 Fix navigation handler regression to match legacy QuickTab behavior.
