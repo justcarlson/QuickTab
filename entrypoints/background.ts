@@ -91,17 +91,16 @@ async function setActionIcon(mode: UrlDetectionMode): Promise<void> {
 	const iconPath =
 		mode !== "noUrls" ? "/images/icons/icon38-enabled.png" : "/images/icons/icon38-disabled.png";
 
-	// Query all Zendesk agent tabs and update their icons
+	// Query all Zendesk agent tabs and update their icons in parallel
 	const tabs = await queryZendeskTabs();
-	for (const tab of tabs) {
-		if (tab.id) {
-			try {
-				await chrome.action.setIcon({ tabId: tab.id, path: iconPath });
-			} catch {
+	const tabIds = tabs.map((tab) => tab.id).filter((id): id is number => id !== undefined);
+	await Promise.all(
+		tabIds.map((tabId) =>
+			chrome.action.setIcon({ tabId, path: iconPath }).catch(() => {
 				// Tab may have closed, ignore
-			}
-		}
-	}
+			}),
+		),
+	);
 }
 
 /**
