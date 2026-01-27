@@ -82,26 +82,57 @@ function isDuplicateNavigation(tabId: number, url: string): boolean {
 }
 
 /**
- * Update action icon for all Zendesk agent tabs based on detection mode.
+ * Get the icon path for a given detection mode.
+ *
+ * @param mode - Current URL detection mode
+ * @returns Path to the appropriate icon
+ */
+function getIconPath(mode: UrlDetectionMode): string {
+	return mode !== "noUrls"
+		? "/images/icons/icon38-enabled.png"
+		: "/images/icons/icon38-disabled.png";
+}
+
+/**
+ * Update action icon for a SINGLE tab based on detection mode.
+ * Use this for individual tab updates (e.g., onDOMContentLoaded).
+ *
+ * This is optimized to minimize chrome.* API calls, which is critical
+ * when DLP extensions (like Incydr) are monitoring API calls and adding latency.
+ *
+ * @param tabId - Tab ID to update
+ * @param mode - Current URL detection mode
+ */
+async function setTabIcon(tabId: number, mode: UrlDetectionMode): Promise<void> {
+	const iconPath = getIconPath(mode);
+	try {
+		await chrome.action.setIcon({ tabId, path: iconPath });
+	} catch {
+		// Tab may have closed, ignore
+	}
+}
+
+/**
+ * Update action icon for ALL Zendesk agent tabs based on detection mode.
+ * Use this only when the mode changes (requires updating all tabs).
+ *
  * Per existing behavior: enabled icon if mode !== 'noUrls', disabled otherwise.
  *
  * @param mode - Current URL detection mode
  */
-async function setActionIcon(mode: UrlDetectionMode): Promise<void> {
-	const iconPath =
-		mode !== "noUrls" ? "/images/icons/icon38-enabled.png" : "/images/icons/icon38-disabled.png";
+async function setAllTabIcons(mode: UrlDetectionMode): Promise<void> {
+	const iconPath = getIconPath(mode);
 
-	// Query all Zendesk agent tabs and update their icons
+	// Query all Zendesk agent tabs and update their icons in parallel
 	const tabs = await queryZendeskTabs();
-	for (const tab of tabs) {
-		if (tab.id) {
-			try {
-				await chrome.action.setIcon({ tabId: tab.id, path: iconPath });
-			} catch {
+	const tabIds = tabs.map((tab) => tab.id).filter((id): id is number => id !== undefined);
+	await Promise.all(
+		tabIds.map((tabId) =>
+			chrome.action.setIcon({ tabId, path: iconPath }).catch(() => {
 				// Tab may have closed, ignore
-			}
-		}
-	}
+			}),
+		),
+	);
 }
 
 /**
@@ -375,6 +406,10 @@ export default defineBackground(() => {
 	/**
 	 * Track Zendesk agent tabs when page loads
 	 * Shows action icon and updates tab tracking state
+	 *
+	 * OPTIMIZATION: Only updates the SINGLE tab's icon instead of all tabs.
+	 * This is critical for performance when DLP extensions (like Incydr) are
+	 * monitoring chrome.* API calls - reduces O(N) to O(1) API calls per navigation.
 	 */
 	chrome.webNavigation.onDOMContentLoaded.addListener(
 		async (details) => {
@@ -387,9 +422,9 @@ export default defineBackground(() => {
 			// Enable action icon for this tab
 			chrome.action.enable(details.tabId);
 
-			// Set icon state based on detection mode
+			// Set icon state for THIS tab only (not all tabs)
 			const mode = await getUrlDetection();
-			await setActionIcon(mode);
+			await setTabIcon(details.tabId, mode);
 		},
 		{ url: [{ urlContains: "zendesk.com/agent" }] },
 	);
@@ -419,9 +454,9 @@ export default defineBackground(() => {
 			}
 
 			if (message.type === "setMode") {
-				// Save new mode and update icons
+				// Save new mode and update ALL tab icons (mode change affects all tabs)
 				setUrlDetection(message.mode)
-					.then(() => setActionIcon(message.mode))
+					.then(() => setAllTabIcons(message.mode))
 					.then(() => {
 						sendResponse(true);
 					})
