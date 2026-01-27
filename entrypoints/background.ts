@@ -32,17 +32,6 @@ import { buildZendeskUrl, isZendeskAgentUrl, matchZendeskUrl } from "@/src/utils
 const recentNavigations = new Map<string, number>();
 const NAVIGATION_DEDUPE_MS = 1000; // 1 second window for deduplication
 
-/**
- * Track tabs we've recently updated via chrome.tabs.update() to prevent cascade.
- * Key: tabId, Value: timestamp
- *
- * Problem: When we update a tab's URL, it triggers a new navigation event.
- * This can cause a cascade where tabs keep routing to each other and closing.
- *
- * Solution: Skip navigation handling for tabs we've just updated ourselves.
- */
-const recentlyUpdatedByUs = new Map<number, number>();
-const UPDATE_CASCADE_PREVENTION_MS = 2000; // 2 second window
 
 /**
  * Message types for popup communication
@@ -192,11 +181,6 @@ async function handleNavigation(
 	if (existingTab?.id) {
 		// Route to existing tab
 		const targetUrl = buildZendeskUrl(match);
-
-		// Mark this tab as "updated by us" BEFORE updating to prevent cascade
-		// When we update the URL, it triggers a new navigation event - we need to ignore that
-		recentlyUpdatedByUs.set(existingTab.id, Date.now());
-
 		const updated = await updateTabUrl(existingTab.id, targetUrl);
 
 		if (updated) {
@@ -338,15 +322,6 @@ export default defineBackground(() => {
 				tabId: details.tabId,
 			});
 
-			// Cascade prevention: Skip if this tab was recently updated BY US
-			// This prevents the cascade where updating a tab's URL triggers another
-			// navigation event, causing tabs to close each other in a chain
-			const updatedAt = recentlyUpdatedByUs.get(details.tabId);
-			if (updatedAt && Date.now() - updatedAt < UPDATE_CASCADE_PREVENTION_MS) {
-				console.log("QuickTab: Skipping - tab was recently updated by us (cascade prevention)");
-				return;
-			}
-
 			// Deduplication: Skip if we recently processed this exact navigation
 			if (isDuplicateNavigation(details.tabId, details.url)) return;
 
@@ -380,13 +355,6 @@ export default defineBackground(() => {
 				tabId: details.tabId,
 				transitionType: details.transitionType,
 			});
-
-			// Cascade prevention: Skip if this tab was recently updated BY US
-			const updatedAt = recentlyUpdatedByUs.get(details.tabId);
-			if (updatedAt && Date.now() - updatedAt < UPDATE_CASCADE_PREVENTION_MS) {
-				console.log("QuickTab: Skipping onCommitted - cascade prevention");
-				return;
-			}
 
 			// Deduplication: Skip if we recently processed this exact navigation
 			if (isDuplicateNavigation(details.tabId, details.url)) return;
