@@ -1,3 +1,15 @@
+### v0.12.4-dev (2026-01-27)
+
+Diagnostic build for investigating DLP extension slowness.
+
+**Added**
+* Timing instrumentation for all chrome.* API calls
+* Console logs with `[DIAG]` prefix showing milliseconds per operation
+
+**Usage**
+* Load extension, open Service Worker DevTools, capture logs during navigation
+* Compare timing with/without DLP extensions to identify bottleneck
+
 ### v0.12.3 (2026-01-27)
 
 Further performance improvements for environments with DLP/security extensions.
