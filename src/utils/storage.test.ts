@@ -10,7 +10,14 @@
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fakeBrowser } from "wxt/testing/fake-browser";
-import { clearState, getUrlDetection, loadState, saveState, setUrlDetection } from "./storage";
+import {
+	clearState,
+	getUrlDetection,
+	loadAll,
+	loadState,
+	saveState,
+	setUrlDetection,
+} from "./storage";
 
 describe("storage", () => {
 	// Reset is handled globally in vitest.setup.ts, but explicit reset ensures isolation
@@ -159,6 +166,72 @@ describe("storage", () => {
 
 			expect(warnSpy).toHaveBeenCalledWith(
 				"QuickTab: Failed to write URL detection mode",
+				expect.any(Error),
+			);
+
+			warnSpy.mockRestore();
+		});
+	});
+
+	describe("loadAll", () => {
+		it("returns both mode and state in a single call", async () => {
+			// Set up both values in storage
+			await fakeBrowser.storage.local.set({
+				urlDetection: "ticketUrls",
+				quicktab_state: {
+					zendeskTabs: { 1: { subdomain: "test", lastActive: 123 } },
+				},
+			});
+
+			const result = await loadAll();
+
+			expect(result.mode).toBe("ticketUrls");
+			expect(result.state).toEqual({
+				zendeskTabs: { 1: { subdomain: "test", lastActive: 123 } },
+			});
+		});
+
+		it("returns defaults when storage is empty", async () => {
+			const result = await loadAll();
+
+			expect(result.mode).toBe("allUrls");
+			expect(result.state).toEqual({ zendeskTabs: {} });
+		});
+
+		it("returns partial defaults when only mode is set", async () => {
+			await fakeBrowser.storage.local.set({ urlDetection: "noUrls" });
+
+			const result = await loadAll();
+
+			expect(result.mode).toBe("noUrls");
+			expect(result.state).toEqual({ zendeskTabs: {} });
+		});
+
+		it("returns partial defaults when only state is set", async () => {
+			await fakeBrowser.storage.local.set({
+				quicktab_state: {
+					zendeskTabs: { 5: { subdomain: "acme", lastActive: 500 } },
+				},
+			});
+
+			const result = await loadAll();
+
+			expect(result.mode).toBe("allUrls");
+			expect(result.state).toEqual({
+				zendeskTabs: { 5: { subdomain: "acme", lastActive: 500 } },
+			});
+		});
+
+		it("returns defaults on storage error (silent fallback)", async () => {
+			vi.spyOn(chrome.storage.local, "get").mockRejectedValueOnce(new Error("Storage error"));
+			const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+			const result = await loadAll();
+
+			expect(result.mode).toBe("allUrls");
+			expect(result.state).toEqual({ zendeskTabs: {} });
+			expect(warnSpy).toHaveBeenCalledWith(
+				"QuickTab: Storage read failed, using defaults",
 				expect.any(Error),
 			);
 

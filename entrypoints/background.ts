@@ -11,8 +11,10 @@
  */
 
 import {
+	type AllStorageData,
 	clearState,
 	getUrlDetection,
+	loadAll,
 	loadState,
 	saveState,
 	setUrlDetection,
@@ -194,17 +196,20 @@ async function findExistingAgentTab(
  * 3. Update that tab's URL and focus it
  * 4. Close the source tab
  *
+ * PERFORMANCE: Accepts pre-loaded state to avoid redundant storage reads.
+ * The caller loads state once via loadAll() and passes it through.
+ *
  * @param sourceTabId - Tab ID that initiated the navigation
  * @param sourceUrl - URL being navigated to
  * @param match - Matched route details
+ * @param state - Pre-loaded storage state (to minimize API calls)
  */
 async function handleNavigation(
 	sourceTabId: number,
 	_sourceUrl: string,
 	match: RouteMatch,
+	state: AllStorageData["state"],
 ): Promise<void> {
-	const state = await loadState();
-
 	// Find existing LIVE agent tab for this subdomain (not the source tab)
 	const existingTab = await findExistingAgentTab(match.subdomain, sourceTabId, state.zendeskTabs);
 
@@ -239,14 +244,18 @@ async function handleNavigation(
 }
 
 /**
- * Track a tab as a Zendesk agent tab in state.
+ * Track a tab as a Zendesk agent tab using pre-loaded state.
+ * PERFORMANCE: Accepts pre-loaded state to avoid redundant storage reads.
  *
  * @param tabId - Tab ID to track
  * @param url - Current URL of the tab
+ * @param state - Pre-loaded storage state (to minimize API calls)
  */
-async function trackTab(tabId: number, url: string): Promise<void> {
-	const state = await loadState();
-
+async function trackTabWithState(
+	tabId: number,
+	url: string,
+	state: AllStorageData["state"],
+): Promise<void> {
 	// Extract subdomain from URL
 	const match = matchZendeskUrl(url);
 	if (!match) {
@@ -355,16 +364,18 @@ export default defineBackground(() => {
 			// Deduplication: Skip if we recently processed this exact navigation
 			if (isDuplicateNavigation(details.tabId, details.url)) return;
 
-			const detection = await getUrlDetection();
-			if (detection === "noUrls") return;
+			// PERFORMANCE: Load ALL storage data in ONE API call
+			// This batches getUrlDetection + loadState into a single chrome.storage.local.get()
+			const { mode, state } = await loadAll();
+			if (mode === "noUrls") return;
 
 			const match = matchZendeskUrl(details.url);
 			if (!match) return;
 
 			// For ticketUrls mode, only intercept ticket routes
-			if (detection === "ticketUrls" && match.type !== "ticket") return;
+			if (mode === "ticketUrls" && match.type !== "ticket") return;
 
-			await handleNavigation(details.tabId, details.url, match);
+			await handleNavigation(details.tabId, details.url, match, state);
 		},
 		{ url: [{ hostSuffix: "zendesk.com" }] },
 	);
@@ -389,16 +400,17 @@ export default defineBackground(() => {
 			// Deduplication: Skip if we recently processed this exact navigation
 			if (isDuplicateNavigation(details.tabId, details.url)) return;
 
-			const detection = await getUrlDetection();
-			if (detection === "noUrls") return;
+			// PERFORMANCE: Load ALL storage data in ONE API call
+			const { mode, state } = await loadAll();
+			if (mode === "noUrls") return;
 
 			const match = matchZendeskUrl(details.url);
 			if (!match) return;
 
 			// For ticketUrls mode, only intercept ticket routes
-			if (detection === "ticketUrls" && match.type !== "ticket") return;
+			if (mode === "ticketUrls" && match.type !== "ticket") return;
 
-			await handleNavigation(details.tabId, details.url, match);
+			await handleNavigation(details.tabId, details.url, match, state);
 		},
 		{ url: [{ hostSuffix: "zendesk.com" }] },
 	);
@@ -410,20 +422,25 @@ export default defineBackground(() => {
 	 * OPTIMIZATION: Only updates the SINGLE tab's icon instead of all tabs.
 	 * This is critical for performance when DLP extensions (like Incydr) are
 	 * monitoring chrome.* API calls - reduces O(N) to O(1) API calls per navigation.
+	 *
+	 * PERFORMANCE: Uses loadAll() to batch storage reads into single API call.
 	 */
 	chrome.webNavigation.onDOMContentLoaded.addListener(
 		async (details) => {
 			// Only handle main frame
 			if (details.frameId !== 0) return;
 
-			// Track this tab
-			await trackTab(details.tabId, details.url);
+			// PERFORMANCE: Load ALL storage data in ONE API call
+			// This replaces: trackTab() + getUrlDetection() which was 3 separate reads
+			const { mode, state } = await loadAll();
+
+			// Track this tab (using pre-loaded state)
+			await trackTabWithState(details.tabId, details.url, state);
 
 			// Enable action icon for this tab
 			chrome.action.enable(details.tabId);
 
 			// Set icon state for THIS tab only (not all tabs)
-			const mode = await getUrlDetection();
 			await setTabIcon(details.tabId, mode);
 		},
 		{ url: [{ urlContains: "zendesk.com/agent" }] },

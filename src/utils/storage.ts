@@ -85,5 +85,40 @@ export async function clearState(): Promise<void> {
 	}
 }
 
+/**
+ * Result of loading all storage data in a single call.
+ * Used to minimize chrome.storage API calls which can be slow
+ * when DLP extensions (like Incydr) are monitoring API usage.
+ */
+export interface AllStorageData {
+	mode: UrlDetectionMode;
+	state: StorageSchema["quicktab_state"];
+}
+
+/**
+ * Load ALL QuickTab data in a SINGLE chrome.storage.local.get() call.
+ *
+ * PERFORMANCE CRITICAL: This batches what would be 2 separate API calls
+ * (getUrlDetection + loadState) into 1 call. When DLP extensions add latency
+ * to each chrome.* API call, this batching is essential for responsiveness.
+ *
+ * @returns Object containing both mode and state
+ */
+export async function loadAll(): Promise<AllStorageData> {
+	try {
+		const result = await chrome.storage.local.get(["urlDetection", STORAGE_KEY]);
+		return {
+			mode: (result.urlDetection as UrlDetectionMode) ?? "allUrls",
+			state: (result[STORAGE_KEY] as StorageSchema["quicktab_state"]) ?? DEFAULT_STATE,
+		};
+	} catch (error) {
+		console.warn("QuickTab: Storage read failed, using defaults", error);
+		return {
+			mode: "allUrls",
+			state: DEFAULT_STATE,
+		};
+	}
+}
+
 // Re-export types for convenience
 export type { ZendeskTabInfo, UrlDetectionMode, StorageSchema };
