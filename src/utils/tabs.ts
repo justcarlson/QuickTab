@@ -63,3 +63,43 @@ export async function closeTab(tabId: number): Promise<void> {
 export async function queryZendeskTabs(): Promise<chrome.tabs.Tab[]> {
 	return chrome.tabs.query({ url: "*://*.zendesk.com/agent/*" });
 }
+
+/**
+ * Update Zendesk tab's route via postMessage to SPA.
+ *
+ * This matches the legacy QuickTab routing mechanism which sends a postMessage
+ * to Zendesk's Single Page Application. The SPA listens for these messages and
+ * navigates internally via the History API without triggering browser navigation
+ * events.
+ *
+ * This is CRITICAL for avoiding cascade issues where chrome.tabs.update() would
+ * trigger new navigation events, causing multiple tabs to close unexpectedly.
+ *
+ * Legacy implementation (browser.js):
+ * ```javascript
+ * var message = { "target": "route", "memo": { "hash": route } };
+ * var codeToExecute = "window.postMessage('" + JSON.stringify(message) + "', '*')";
+ * this.tabs.executeScript(lotusTabId, { code: codeToExecute });
+ * ```
+ *
+ * @param tabId - Tab ID to update
+ * @param route - Route path (e.g., "/tickets/123", "/dashboard")
+ * @returns true if script executed successfully, false otherwise
+ */
+export async function updateLotusRoute(tabId: number, route: string): Promise<boolean> {
+	try {
+		await chrome.scripting.executeScript({
+			target: { tabId },
+			func: (routePath: string) => {
+				// Zendesk SPA expects this exact message format
+				const message = { target: "route", memo: { hash: routePath } };
+				window.postMessage(JSON.stringify(message), "*");
+			},
+			args: [route],
+		});
+		return true;
+	} catch (error) {
+		console.warn("QuickTab: Failed to update lotus route", tabId, error);
+		return false;
+	}
+}

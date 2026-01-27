@@ -5,7 +5,7 @@ export default defineConfig({
 	manifest: {
 		name: "__MSG_appName__",
 		description: "__MSG_appDescription__",
-		permissions: ["webNavigation", "tabs", "storage"],
+		permissions: ["webNavigation", "tabs", "storage", "scripting"],
 		host_permissions: ["http://*.zendesk.com/*", "https://*.zendesk.com/*"],
 		icons: {
 			16: "images/icons/icon-16.png",

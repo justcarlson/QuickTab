@@ -9,7 +9,7 @@
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fakeBrowser } from "wxt/testing/fake-browser";
-import { closeTab, focusTab, queryZendeskTabs, updateTabUrl } from "./tabs";
+import { closeTab, focusTab, queryZendeskTabs, updateLotusRoute, updateTabUrl } from "./tabs";
 
 describe("tabs", () => {
 	beforeEach(() => {
@@ -297,6 +297,88 @@ describe("tabs", () => {
 			const result = await queryZendeskTabs();
 
 			expect(result).toEqual([]);
+		});
+	});
+
+	describe("updateLotusRoute", () => {
+		it("returns true and executes script with correct postMessage format", async () => {
+			const tabId = 123;
+			const route = "/tickets/456";
+
+			// Mock chrome.scripting.executeScript to succeed
+			const executeScriptSpy = vi
+				.spyOn(chrome.scripting, "executeScript")
+				.mockResolvedValueOnce([{ result: undefined }]);
+
+			const result = await updateLotusRoute(tabId, route);
+
+			expect(result).toBe(true);
+			expect(executeScriptSpy).toHaveBeenCalledWith({
+				target: { tabId },
+				func: expect.any(Function),
+				args: [route],
+			});
+		});
+
+		it("passes route to postMessage via args", async () => {
+			const tabId = 789;
+			const route = "/dashboard";
+
+			let capturedArgs: unknown[] = [];
+			vi.spyOn(chrome.scripting, "executeScript").mockImplementationOnce(async (injection) => {
+				// Capture the args passed to executeScript
+				if ("args" in injection && injection.args) {
+					capturedArgs = injection.args;
+				}
+				return [{ result: undefined }];
+			});
+
+			await updateLotusRoute(tabId, route);
+
+			expect(capturedArgs).toEqual([route]);
+		});
+
+		it("returns false when tab doesn't exist", async () => {
+			const tabId = 999;
+			const route = "/tickets/123";
+
+			// Mock executeScript to fail (tab doesn't exist)
+			vi.spyOn(chrome.scripting, "executeScript").mockRejectedValueOnce(
+				new Error("No tab with id: 999"),
+			);
+
+			const result = await updateLotusRoute(tabId, route);
+
+			expect(result).toBe(false);
+		});
+
+		it("returns false when script execution fails", async () => {
+			const tabId = 123;
+			const route = "/tickets/456";
+
+			// Mock executeScript to fail
+			vi.spyOn(chrome.scripting, "executeScript").mockRejectedValueOnce(
+				new Error("Script execution failed"),
+			);
+
+			const result = await updateLotusRoute(tabId, route);
+
+			expect(result).toBe(false);
+		});
+
+		it("handles various route formats", async () => {
+			const tabId = 123;
+			const routes = ["/tickets/123", "/dashboard", "/users/456", "/organizations/789"];
+
+			const executeScriptSpy = vi.spyOn(chrome.scripting, "executeScript");
+
+			for (const route of routes) {
+				executeScriptSpy.mockResolvedValueOnce([{ result: undefined }]);
+				const result = await updateLotusRoute(tabId, route);
+				expect(result).toBe(true);
+			}
+
+			expect(executeScriptSpy).toHaveBeenCalledTimes(routes.length);
 		});
 	});
 });

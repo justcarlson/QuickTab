@@ -17,9 +17,9 @@ import {
 	saveState,
 	setUrlDetection,
 } from "@/src/utils/storage";
-import { closeTab, focusTab, queryZendeskTabs, updateTabUrl } from "@/src/utils/tabs";
+import { closeTab, focusTab, queryZendeskTabs, updateLotusRoute } from "@/src/utils/tabs";
 import type { RouteMatch, UrlDetectionMode, ZendeskTabInfo } from "@/src/utils/types";
-import { buildZendeskUrl, isZendeskAgentUrl, matchZendeskUrl } from "@/src/utils/url-matching";
+import { isZendeskAgentUrl, matchZendeskUrl } from "@/src/utils/url-matching";
 
 /**
  * Deduplication: Track recently processed navigations to prevent double-firing.
@@ -31,7 +31,6 @@ import { buildZendeskUrl, isZendeskAgentUrl, matchZendeskUrl } from "@/src/utils
  */
 const recentNavigations = new Map<string, number>();
 const NAVIGATION_DEDUPE_MS = 1000; // 1 second window for deduplication
-
 
 /**
  * Message types for popup communication
@@ -179,9 +178,9 @@ async function handleNavigation(
 	const existingTab = await findExistingAgentTab(match.subdomain, sourceTabId, state.zendeskTabs);
 
 	if (existingTab?.id) {
-		// Route to existing tab
-		const targetUrl = buildZendeskUrl(match);
-		const updated = await updateTabUrl(existingTab.id, targetUrl);
+		// Route to existing tab via postMessage to Zendesk SPA
+		// This avoids triggering browser navigation events (prevents cascade)
+		const updated = await updateLotusRoute(existingTab.id, match.path);
 
 		if (updated) {
 			await focusTab(existingTab.id);
