@@ -5,7 +5,16 @@
  * Communicates with background service worker via chrome.runtime.sendMessage.
  */
 
+// DIAGNOSTIC: Capture script start time immediately
+const POPUP_SCRIPT_START = performance.now();
+console.log("[DIAG] popup script started");
+
 import type { UrlDetectionMode } from "@/src/utils/types";
+
+const diagLog = (label: string, startTime: number) => {
+	const elapsed = Math.round(performance.now() - startTime);
+	console.log(`[DIAG] ${label}: ${elapsed}ms`);
+};
 
 interface GetStatusResponse {
 	mode: UrlDetectionMode;
@@ -90,12 +99,19 @@ function populateI18n(): void {
  * Initialize popup on DOM ready.
  */
 document.addEventListener("DOMContentLoaded", async () => {
+	diagLog("popup DOMContentLoaded (from script start)", POPUP_SCRIPT_START);
+	const t0 = performance.now();
+
 	// Populate i18n strings first (while loading)
+	const t1 = performance.now();
 	populateI18n();
+	diagLog("popup populateI18n", t1);
 
 	try {
 		// Load current mode from background
+		const t2 = performance.now();
 		const currentMode = await getStatus();
+		diagLog("popup getStatus (sendMessage)", t2);
 		updateModeUI(currentMode);
 	} catch (error) {
 		// Silent fallback - default to allUrls on error
@@ -108,6 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	if (app) {
 		app.classList.remove("loading");
 	}
+	diagLog("popup DOMContentLoaded.TOTAL", t0);
 
 	// Bind mode change handlers
 	document.querySelectorAll<HTMLInputElement>('input[name="detection-mode"]').forEach((radio) => {

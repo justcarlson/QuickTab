@@ -5,6 +5,15 @@
  * Shown to users on first install.
  */
 
+// DIAGNOSTIC: Capture script start time immediately
+const WELCOME_SCRIPT_START = performance.now();
+console.log("[DIAG] welcome script started");
+
+const diagLog = (label: string, startTime: number) => {
+	const elapsed = Math.round(performance.now() - startTime);
+	console.log(`[DIAG] ${label}: ${elapsed}ms`);
+};
+
 /**
  * Get localized string with fallback to key name.
  */
@@ -53,5 +62,9 @@ function populateI18n(): void {
  * Initialize welcome page on DOM ready.
  */
 document.addEventListener("DOMContentLoaded", () => {
+	diagLog("welcome DOMContentLoaded (from script start)", WELCOME_SCRIPT_START);
+	const t0 = performance.now();
 	populateI18n();
+	diagLog("welcome populateI18n", t0);
+	diagLog("welcome DOMContentLoaded.TOTAL", t0);
 });

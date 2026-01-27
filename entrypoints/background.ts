@@ -10,6 +10,10 @@
  * - No global state variables (service worker terminates)
  */
 
+// DIAGNOSTIC: Capture absolute timestamp when module starts loading
+const SW_MODULE_START = Date.now();
+console.log(`[DIAG] SW module load start: ${new Date(SW_MODULE_START).toISOString()}`);
+
 import {
 	type AllStorageData,
 	clearState,
