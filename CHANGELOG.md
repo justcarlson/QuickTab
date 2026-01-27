@@ -1,3 +1,17 @@
+### v0.12.1 (2026-01-27)
+
+Fix navigation handler regression to match legacy QuickTab behavior.
+
+**Fixed**
+* Use postMessage routing instead of chrome.tabs.update() to prevent cascade
+* Multiple Zendesk tabs no longer close unexpectedly when routing
+* Add `scripting` permission for chrome.scripting.executeScript()
+
+**How it works**
+* Legacy QuickTab used Zendesk's SPA internal routing via postMessage
+* This navigates without triggering browser events, preventing cascades
+* Now matches original extension behavior exactly
+
 ### v0.12.0 (2026-01-26)
 
 Complete codebase modernization.
