@@ -5,6 +5,15 @@
 
 import type { StorageSchema, UrlDetectionMode, ZendeskTabInfo } from "./types";
 
+// DIAGNOSTIC TIMING - Remove after debugging
+const DIAG_ENABLED = true;
+const diagLog = (label: string, startTime: number) => {
+	if (!DIAG_ENABLED) return;
+	const elapsed = Math.round(performance.now() - startTime);
+	console.log(`[DIAG] ${label}: ${elapsed}ms`);
+};
+const diagStart = () => performance.now();
+
 /** Storage key for QuickTab state */
 const STORAGE_KEY = "quicktab_state" as const;
 
@@ -38,7 +47,9 @@ export async function loadState(): Promise<StorageSchema["quicktab_state"]> {
  */
 export async function saveState(state: StorageSchema["quicktab_state"]): Promise<void> {
 	try {
+		const t1 = diagStart();
 		await chrome.storage.local.set({ [STORAGE_KEY]: state });
+		diagLog("saveState.storage.local.set", t1);
 	} catch (error) {
 		// Silent fallback per CONTEXT.md - no user-visible error
 		console.warn("QuickTab: Storage write failed", error);
@@ -106,7 +117,9 @@ export interface AllStorageData {
  */
 export async function loadAll(): Promise<AllStorageData> {
 	try {
+		const t1 = diagStart();
 		const result = await chrome.storage.local.get(["urlDetection", STORAGE_KEY]);
+		diagLog("loadAll.storage.local.get", t1);
 		return {
 			mode: (result.urlDetection as UrlDetectionMode) ?? "allUrls",
 			state: (result[STORAGE_KEY] as StorageSchema["quicktab_state"]) ?? DEFAULT_STATE,
