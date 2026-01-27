@@ -1,3 +1,12 @@
+### v0.12.3 (2026-01-27)
+
+Further performance improvements for environments with DLP/security extensions.
+
+**Fixed**
+* Batch multiple storage reads into single API calls
+* Reduce storage API calls by ~50% per navigation event
+* Add `loadAll()` function for efficient combined state retrieval
+
 ### v0.12.2 (2026-01-27)
 
 Fix performance degradation when DLP/security extensions (like Incydr) are active.
