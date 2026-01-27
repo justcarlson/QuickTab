@@ -19,6 +19,18 @@ import {
 	saveState,
 	setUrlDetection,
 } from "@/src/utils/storage";
+
+// =================================================================
+// DIAGNOSTIC TIMING - Remove after debugging
+// =================================================================
+const DIAG_ENABLED = true;
+const diagLog = (label: string, startTime: number) => {
+	if (!DIAG_ENABLED) return;
+	const elapsed = Math.round(performance.now() - startTime);
+	console.log(`[DIAG] ${label}: ${elapsed}ms`);
+};
+const diagStart = () => performance.now();
+
 import { closeTab, focusTab, queryZendeskTabs, updateLotusRoute } from "@/src/utils/tabs";
 import type { RouteMatch, UrlDetectionMode, ZendeskTabInfo } from "@/src/utils/types";
 import { isZendeskAgentUrl, matchZendeskUrl } from "@/src/utils/url-matching";
@@ -211,16 +223,25 @@ async function handleNavigation(
 	state: AllStorageData["state"],
 ): Promise<void> {
 	// Find existing LIVE agent tab for this subdomain (not the source tab)
+	const t1 = diagStart();
 	const existingTab = await findExistingAgentTab(match.subdomain, sourceTabId, state.zendeskTabs);
+	diagLog("handleNavigation.findExistingAgentTab", t1);
 
 	if (existingTab?.id) {
 		// Route to existing tab via postMessage to Zendesk SPA
 		// This avoids triggering browser navigation events (prevents cascade)
+		const t2 = diagStart();
 		const updated = await updateLotusRoute(existingTab.id, match.path);
+		diagLog("handleNavigation.updateLotusRoute", t2);
 
 		if (updated) {
+			const t3 = diagStart();
 			await focusTab(existingTab.id);
+			diagLog("handleNavigation.focusTab", t3);
+
+			const t4 = diagStart();
 			await closeTab(sourceTabId);
+			diagLog("handleNavigation.closeTab", t4);
 
 			// Update lastActive for the target tab
 			state.zendeskTabs[existingTab.id] = {
@@ -230,7 +251,9 @@ async function handleNavigation(
 
 			// Remove source tab from tracking (it's now closed)
 			delete state.zendeskTabs[sourceTabId];
+			const t5 = diagStart();
 			await saveState(state);
+			diagLog("handleNavigation.saveState", t5);
 		}
 		// If update failed, tab no longer exists - just let source tab continue
 	} else {
@@ -239,7 +262,9 @@ async function handleNavigation(
 			subdomain: match.subdomain,
 			lastActive: Date.now(),
 		};
+		const t6 = diagStart();
 		await saveState(state);
+		diagLog("handleNavigation.saveState(new)", t6);
 	}
 }
 
@@ -352,6 +377,7 @@ export default defineBackground(() => {
 	 */
 	chrome.webNavigation.onBeforeNavigate.addListener(
 		async (details) => {
+			const t0 = diagStart();
 			// Only handle main frame navigation
 			if (details.frameId !== 0) return;
 
@@ -366,7 +392,9 @@ export default defineBackground(() => {
 
 			// PERFORMANCE: Load ALL storage data in ONE API call
 			// This batches getUrlDetection + loadState into a single chrome.storage.local.get()
+			const t1 = diagStart();
 			const { mode, state } = await loadAll();
+			diagLog("onBeforeNavigate.loadAll", t1);
 			if (mode === "noUrls") return;
 
 			const match = matchZendeskUrl(details.url);
@@ -375,7 +403,10 @@ export default defineBackground(() => {
 			// For ticketUrls mode, only intercept ticket routes
 			if (mode === "ticketUrls" && match.type !== "ticket") return;
 
+			const t2 = diagStart();
 			await handleNavigation(details.tabId, details.url, match, state);
+			diagLog("onBeforeNavigate.handleNavigation", t2);
+			diagLog("onBeforeNavigate.TOTAL", t0);
 		},
 		{ url: [{ hostSuffix: "zendesk.com" }] },
 	);
@@ -387,6 +418,7 @@ export default defineBackground(() => {
 	 */
 	chrome.webNavigation.onCommitted.addListener(
 		async (details) => {
+			const t0 = diagStart();
 			// Only handle main frame navigation
 			if (details.frameId !== 0) return;
 
@@ -401,7 +433,9 @@ export default defineBackground(() => {
 			if (isDuplicateNavigation(details.tabId, details.url)) return;
 
 			// PERFORMANCE: Load ALL storage data in ONE API call
+			const t1 = diagStart();
 			const { mode, state } = await loadAll();
+			diagLog("onCommitted.loadAll", t1);
 			if (mode === "noUrls") return;
 
 			const match = matchZendeskUrl(details.url);
@@ -410,7 +444,10 @@ export default defineBackground(() => {
 			// For ticketUrls mode, only intercept ticket routes
 			if (mode === "ticketUrls" && match.type !== "ticket") return;
 
+			const t2 = diagStart();
 			await handleNavigation(details.tabId, details.url, match, state);
+			diagLog("onCommitted.handleNavigation", t2);
+			diagLog("onCommitted.TOTAL", t0);
 		},
 		{ url: [{ hostSuffix: "zendesk.com" }] },
 	);
@@ -427,21 +464,31 @@ export default defineBackground(() => {
 	 */
 	chrome.webNavigation.onDOMContentLoaded.addListener(
 		async (details) => {
+			const t0 = diagStart();
 			// Only handle main frame
 			if (details.frameId !== 0) return;
 
 			// PERFORMANCE: Load ALL storage data in ONE API call
 			// This replaces: trackTab() + getUrlDetection() which was 3 separate reads
+			const t1 = diagStart();
 			const { mode, state } = await loadAll();
+			diagLog("onDOMContentLoaded.loadAll", t1);
 
 			// Track this tab (using pre-loaded state)
+			const t2 = diagStart();
 			await trackTabWithState(details.tabId, details.url, state);
+			diagLog("onDOMContentLoaded.trackTabWithState", t2);
 
 			// Enable action icon for this tab
+			const t3 = diagStart();
 			chrome.action.enable(details.tabId);
+			diagLog("onDOMContentLoaded.action.enable", t3);
 
 			// Set icon state for THIS tab only (not all tabs)
+			const t4 = diagStart();
 			await setTabIcon(details.tabId, mode);
+			diagLog("onDOMContentLoaded.setTabIcon", t4);
+			diagLog("onDOMContentLoaded.TOTAL", t0);
 		},
 		{ url: [{ urlContains: "zendesk.com/agent" }] },
 	);

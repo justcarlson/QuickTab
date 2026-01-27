@@ -3,6 +3,15 @@
  * All tab operations wrapped in try/catch for defensive handling per RESEARCH.md pitfall #3
  */
 
+// DIAGNOSTIC TIMING - Remove after debugging
+const DIAG_ENABLED = true;
+const diagLog = (label: string, startTime: number) => {
+	if (!DIAG_ENABLED) return;
+	const elapsed = Math.round(performance.now() - startTime);
+	console.log(`[DIAG] ${label}: ${elapsed}ms`);
+};
+const diagStart = () => performance.now();
+
 /**
  * Focus a tab and bring its window to front.
  * Per CONTEXT.md: Different window = focus only, bring window to front, don't move tabs.
@@ -12,9 +21,17 @@
  */
 export async function focusTab(tabId: number): Promise<boolean> {
 	try {
+		const t1 = diagStart();
 		const tab = await chrome.tabs.get(tabId);
+		diagLog("focusTab.tabs.get", t1);
+
+		const t2 = diagStart();
 		await chrome.tabs.update(tabId, { active: true, highlighted: true });
+		diagLog("focusTab.tabs.update", t2);
+
+		const t3 = diagStart();
 		await chrome.windows.update(tab.windowId, { focused: true });
+		diagLog("focusTab.windows.update", t3);
 		return true;
 	} catch {
 		// Tab no longer exists - caller should clean up from storage
@@ -48,7 +65,9 @@ export async function updateTabUrl(tabId: number, url: string): Promise<boolean>
  */
 export async function closeTab(tabId: number): Promise<void> {
 	try {
+		const t1 = diagStart();
 		await chrome.tabs.remove(tabId);
+		diagLog("closeTab.tabs.remove", t1);
 	} catch {
 		// Tab already closed - ignore per RESEARCH.md pitfall #3
 	}
@@ -61,7 +80,10 @@ export async function closeTab(tabId: number): Promise<void> {
  * @returns Array of tabs matching Zendesk agent URL pattern
  */
 export async function queryZendeskTabs(): Promise<chrome.tabs.Tab[]> {
-	return chrome.tabs.query({ url: "*://*.zendesk.com/agent/*" });
+	const t1 = diagStart();
+	const result = await chrome.tabs.query({ url: "*://*.zendesk.com/agent/*" });
+	diagLog("queryZendeskTabs.tabs.query", t1);
+	return result;
 }
 
 /**
@@ -88,6 +110,7 @@ export async function queryZendeskTabs(): Promise<chrome.tabs.Tab[]> {
  */
 export async function updateLotusRoute(tabId: number, route: string): Promise<boolean> {
 	try {
+		const t1 = diagStart();
 		await chrome.scripting.executeScript({
 			target: { tabId },
 			func: (routePath: string) => {
@@ -97,6 +120,7 @@ export async function updateLotusRoute(tabId: number, route: string): Promise<bo
 			},
 			args: [route],
 		});
+		diagLog("updateLotusRoute.scripting.executeScript", t1);
 		return true;
 	} catch (error) {
 		console.warn("QuickTab: Failed to update lotus route", tabId, error);
