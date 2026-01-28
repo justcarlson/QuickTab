@@ -29,7 +29,7 @@
 Plans:
 - [x] 07-01-PLAN.md — Sync version to 1.0.1 and verify build artifacts
 
-**Status:** Complete ✓
+**Status:** Complete
 **Completed:** 2026-01-27
 
 **Success Criteria:**
@@ -50,6 +50,12 @@ Plans:
 - CWS-01: Extension submitted to Chrome Web Store
 - CWS-02: Review feedback addressed (if any rejection/revision requests)
 - CWS-03: Extension published and publicly available
+
+**Plans:** 2 plans
+
+Plans:
+- [ ] 08-01-PLAN.md — Prepare store listing content and verify extension package
+- [ ] 08-02-PLAN.md — Submit to Chrome Web Store and handle review
 
 **Success Criteria:**
 1. Extension package uploaded to Chrome Web Store Developer Dashboard
@@ -78,3 +84,4 @@ Plans:
 *Roadmap created: 2026-01-27*
 *Phase 7 planned: 2026-01-27*
 *Phase 7 completed: 2026-01-27*
+*Phase 8 planned: 2026-01-28*
