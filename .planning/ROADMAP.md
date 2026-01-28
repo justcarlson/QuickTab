@@ -141,10 +141,11 @@ Plans:
   5. Version bumping automated during release
   6. Feature branch merged to main via PR
   7. Phase completion tagged as `v0.12.0` (final release)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
+- [ ] 06-01-PLAN.md — Configure release-please for automated versioning and changelog
+- [ ] 06-02-PLAN.md — Enhance release workflow with CI gate and add commit conventions
 
 ## Progress
 
@@ -160,7 +161,7 @@ Each phase completes with a PR merge to main and a release tag.
 | 3. UI Migration | 4/4 | Complete | 2026-01-25 |
 | 4. Testing & Quality | 6/6 | Complete | 2026-01-25 |
 | 5. Web Store Compliance | 3/3 | Complete | 2026-01-27 |
-| 6. CI/CD & Automation | 0/? | Not started | - |
+| 6. CI/CD & Automation | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-25*
