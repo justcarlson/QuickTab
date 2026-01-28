@@ -9,12 +9,19 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 
 ## Current Position
 
-Phase: 7 (Version Sync)
-Plan: Not started
-Status: Ready to plan phase 7
-Last activity: 2026-01-27 — Roadmap created
+Phase: 7 of 8 (Version Sync)
+Plan: 1 of 1 (Complete)
+Status: Phase 7 complete
+Last activity: 2026-01-27 — Completed 07-01-PLAN.md
 
-Progress: ░░░░░░░░░░░░░░░░░░░░░░░░ v1.0.1 starting
+Progress: ████████████░░░░░░░░░░░░ v1.0.1 50% (1/2 phases)
+
+## v1.0.1 Summary
+
+| Phase | Name | Plans | Status |
+|-------|------|-------|--------|
+| 7 | Version Sync | 1/1 | Complete |
+| 8 | Publish | 0/? | Pending |
 
 ## v1.0 Summary
 
@@ -46,23 +53,27 @@ Key decisions logged in PROJECT.md. Major decisions from v1.0:
 - Biome (10-25x faster than ESLint+Prettier)
 - Release-please (automated versioning)
 
+v1.0.1 decisions:
+- Set version to 1.0.1 (patch increment from v1.0)
+- Use last-release-sha to scope release-please changelog to post-v1.0 commits
+
 ### Pending Todos
 
-None — milestone complete, backlog cleared.
+None
 
 ### Blockers/Concerns
 
-- Version mismatch: package.json (0.12.3) vs GitHub release (v1.0) — to fix in v1.0.1
+- ~~Version mismatch: package.json (0.12.3) vs GitHub release (v1.0)~~ RESOLVED in 07-01
 
 ## Session Continuity
 
 Last session: 2026-01-27
-Stopped at: v1.0 milestone completion
+Stopped at: Completed 07-01-PLAN.md
 Resume file: None
 
 ## Next Steps
 
-Plan and execute Phase 7: Version Sync
+Plan and execute Phase 8: Publish
 
 ---
-*Updated: 2026-01-27 after v1.0.1 roadmap created*
+*Updated: 2026-01-27 after 07-01 plan completion*
