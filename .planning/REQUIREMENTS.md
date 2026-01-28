@@ -9,9 +9,9 @@ Requirements for Release & Publish milestone.
 
 ### Version Sync
 
-- [ ] **VER-01**: package.json version updated to 1.0.1
-- [ ] **VER-02**: Release-please workflow correctly bumps version on merge
-- [ ] **VER-03**: Build artifacts named with correct version (quicktab-v1.0.1-chrome.zip)
+- [x] **VER-01**: package.json version updated to 1.0.1
+- [x] **VER-02**: Release-please workflow correctly bumps version on merge
+- [x] **VER-03**: Build artifacts named with correct version (quicktab-v1.0.1-chrome.zip)
 
 ### Chrome Web Store
 
@@ -39,9 +39,9 @@ Explicitly excluded for v1.0.1.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VER-01 | 7 | Pending |
-| VER-02 | 7 | Pending |
-| VER-03 | 7 | Pending |
+| VER-01 | 7 | Complete |
+| VER-02 | 7 | Complete |
+| VER-03 | 7 | Complete |
 | CWS-01 | 8 | Pending |
 | CWS-02 | 8 | Pending |
 | CWS-03 | 8 | Pending |
@@ -53,4 +53,4 @@ Explicitly excluded for v1.0.1.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 after initial definition*
+*Last updated: 2026-01-27 after Phase 7 completion*
