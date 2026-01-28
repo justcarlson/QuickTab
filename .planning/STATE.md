@@ -96,6 +96,9 @@ Recent decisions affecting current work:
 - [05-02]: Store description leads with pain point per research findings
 - [05-03]: All phase changes committed to feature branch feat/phase-5-webstore-compliance
 - [05-03]: PR #5 created for Phase 5 Web Store Compliance
+- [06-01]: Keep a Changelog section names (Added, Fixed, Changed) for conventional commit mapping
+- [06-01]: Hide docs, chore, test, ci, build commits from changelog
+- [06-01]: Use release_created (singular) output to avoid v4 bug with releases_created (plural)
 - [06-02]: Node 20 standardized across all workflows (matching ci.yml)
 - [06-02]: Pre-release detection uses contains(github.ref, '-') pattern
 - [06-02]: generate_release_notes: false - we use our own changelog
