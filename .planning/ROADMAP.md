@@ -24,6 +24,11 @@
 - VER-02: Release-please workflow correctly bumps version on merge
 - VER-03: Build artifacts named with correct version (quicktab-v1.0.1-chrome.zip)
 
+**Plans:** 1 plan
+
+Plans:
+- [ ] 07-01-PLAN.md — Sync version to 1.0.1 and verify build artifacts
+
 **Success Criteria:**
 1. package.json shows version "1.0.1"
 2. `pnpm build` produces quicktab-v1.0.1-chrome.zip
@@ -68,3 +73,4 @@
 
 ---
 *Roadmap created: 2026-01-27*
+*Phase 7 planned: 2026-01-27*
