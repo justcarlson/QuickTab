@@ -39,17 +39,17 @@ Explicitly excluded for v1.0.1.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VER-01 | TBD | Pending |
-| VER-02 | TBD | Pending |
-| VER-03 | TBD | Pending |
-| CWS-01 | TBD | Pending |
-| CWS-02 | TBD | Pending |
-| CWS-03 | TBD | Pending |
+| VER-01 | 7 | Pending |
+| VER-02 | 7 | Pending |
+| VER-03 | 7 | Pending |
+| CWS-01 | 8 | Pending |
+| CWS-02 | 8 | Pending |
+| CWS-03 | 8 | Pending |
 
 **Coverage:**
 - v1.0.1 requirements: 6 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 6
+- Mapped to phases: 6
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-27*
