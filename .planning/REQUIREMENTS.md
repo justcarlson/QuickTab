@@ -133,11 +133,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CICD-03 | Phase 6 | Pending |
 | CICD-04 | Phase 6 | Pending |
 | CICD-05 | Phase 6 | Pending |
-| STORE-01 | Phase 5 | Pending |
-| STORE-02 | Phase 5 | Pending |
+| STORE-01 | Phase 5 | Complete |
+| STORE-02 | Phase 5 | Complete |
 | STORE-03 | Phase 2 | Complete |
-| STORE-04 | Phase 5 | Pending |
-| STORE-05 | Phase 5 | Pending |
+| STORE-04 | Phase 5 | Complete |
+| STORE-05 | Phase 5 | Complete |
 | MIGR-01 | Phase 3 | Complete |
 | MIGR-02 | Phase 3 | Complete |
 | MIGR-03 | Phase 2 | Complete |

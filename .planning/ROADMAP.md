@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Core Migration** - Service worker and URL matching logic to TypeScript
 - [x] **Phase 3: UI Migration** - Popup and welcome page to vanilla TypeScript
 - [x] **Phase 4: Testing & Quality** - Unit tests, E2E tests, and coverage
-- [ ] **Phase 5: Web Store Compliance** - Privacy policy, permissions audit, store metadata
+- [x] **Phase 5: Web Store Compliance** - Privacy policy, permissions audit, store metadata
 - [ ] **Phase 6: CI/CD & Automation** - GitHub Actions, versioning, changelog
 
 ## Phase Details
@@ -124,9 +124,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Create privacy policy and clean up manifest configuration
-- [ ] 05-02-PLAN.md — Update README permissions and create store metadata
-- [ ] 05-03-PLAN.md — Verify compliance and create PR
+- [x] 05-01-PLAN.md — Create privacy policy and clean up manifest configuration
+- [x] 05-02-PLAN.md — Update README permissions and create store metadata
+- [x] 05-03-PLAN.md — Verify compliance and create PR
 
 ### Phase 6: CI/CD & Automation
 **Goal**: Automate testing, building, and release workflows
@@ -159,7 +159,7 @@ Each phase completes with a PR merge to main and a release tag.
 | 2. Core Migration | 4/4 | Complete | 2026-01-25 |
 | 3. UI Migration | 4/4 | Complete | 2026-01-25 |
 | 4. Testing & Quality | 6/6 | Complete | 2026-01-25 |
-| 5. Web Store Compliance | 0/? | Not started | - |
+| 5. Web Store Compliance | 3/3 | Complete | 2026-01-27 |
 | 6. CI/CD & Automation | 0/? | Not started | - |
 
 ---
