@@ -38,6 +38,7 @@ describe("tabs", () => {
 			});
 
 			// Mock chrome.tabs.update to succeed
+			// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns Tab
 			vi.spyOn(chrome.tabs, "update").mockResolvedValueOnce({
 				id: tabId,
 				windowId,
@@ -53,6 +54,7 @@ describe("tabs", () => {
 			});
 
 			// Mock chrome.windows.update to succeed
+			// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns Window
 			vi.spyOn(chrome.windows, "update").mockResolvedValueOnce({
 				id: windowId,
 				focused: true,
@@ -86,6 +88,7 @@ describe("tabs", () => {
 				groupId: -1,
 			});
 
+			// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns Tab
 			vi.spyOn(chrome.tabs, "update").mockResolvedValueOnce({
 				id: tabId,
 				windowId,
@@ -100,6 +103,7 @@ describe("tabs", () => {
 				groupId: -1,
 			});
 
+			// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns Window
 			const windowsUpdateSpy = vi.spyOn(chrome.windows, "update").mockResolvedValueOnce({
 				id: windowId,
 				focused: true,
@@ -167,6 +171,7 @@ describe("tabs", () => {
 				groupId: -1,
 			});
 
+			// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns Tab
 			vi.spyOn(chrome.tabs, "update").mockResolvedValueOnce({
 				id: tabId,
 				windowId,
@@ -195,6 +200,7 @@ describe("tabs", () => {
 			const tabId = 123;
 			const url = "https://company.zendesk.com/agent/tickets/456";
 
+			// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns Tab
 			vi.spyOn(chrome.tabs, "update").mockResolvedValueOnce({
 				id: tabId,
 				windowId: 1,
@@ -308,6 +314,7 @@ describe("tabs", () => {
 			// Mock chrome.scripting.executeScript to succeed
 			const executeScriptSpy = vi
 				.spyOn(chrome.scripting, "executeScript")
+				// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns InjectionResult[]
 				.mockResolvedValueOnce([{ result: undefined }]);
 
 			const result = await updateLotusRoute(tabId, route);
@@ -373,6 +380,7 @@ describe("tabs", () => {
 			const executeScriptSpy = vi.spyOn(chrome.scripting, "executeScript");
 
 			for (const route of routes) {
+				// @ts-expect-error - fake-browser types methods as void, but actual Chrome API returns InjectionResult[]
 				executeScriptSpy.mockResolvedValueOnce([{ result: undefined }]);
 				const result = await updateLotusRoute(tabId, route);
 				expect(result).toBe(true);

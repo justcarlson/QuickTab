@@ -133,9 +133,9 @@ describe("storage-first architecture", () => {
 			const state = await loadState();
 
 			expect(state.zendeskTabs[123]).toBeDefined();
-			expect(state.zendeskTabs[123].subdomain).toBe("company1");
+			expect(state.zendeskTabs[123]?.subdomain).toBe("company1");
 			expect(state.zendeskTabs[456]).toBeDefined();
-			expect(state.zendeskTabs[456].subdomain).toBe("company2");
+			expect(state.zendeskTabs[456]?.subdomain).toBe("company2");
 		});
 	});
 
@@ -153,8 +153,8 @@ describe("storage-first architecture", () => {
 			// Verify it was persisted
 			const loaded = await loadState();
 			expect(loaded.zendeskTabs[789]).toBeDefined();
-			expect(loaded.zendeskTabs[789].subdomain).toBe("test-company");
-			expect(loaded.zendeskTabs[789].lastActive).toBe(3000);
+			expect(loaded.zendeskTabs[789]?.subdomain).toBe("test-company");
+			expect(loaded.zendeskTabs[789]?.lastActive).toBe(3000);
 		});
 
 		it("overwrites previous state completely", async () => {
@@ -232,8 +232,8 @@ describe("state persistence (TEST-08)", () => {
 			// Verify state loaded from storage
 			const state = await loadState();
 			expect(state.zendeskTabs[123]).toBeDefined();
-			expect(state.zendeskTabs[123].subdomain).toBe("company");
-			expect(state.zendeskTabs[123].lastActive).toBe(1000);
+			expect(state.zendeskTabs[123]?.subdomain).toBe("company");
+			expect(state.zendeskTabs[123]?.lastActive).toBe(1000);
 		});
 
 		it("multiple tabs survive restart", async () => {
@@ -253,9 +253,9 @@ describe("state persistence (TEST-08)", () => {
 
 			const state = await loadState();
 			expect(Object.keys(state.zendeskTabs)).toHaveLength(3);
-			expect(state.zendeskTabs[1].subdomain).toBe("alpha");
-			expect(state.zendeskTabs[2].subdomain).toBe("alpha");
-			expect(state.zendeskTabs[3].subdomain).toBe("beta");
+			expect(state.zendeskTabs[1]?.subdomain).toBe("alpha");
+			expect(state.zendeskTabs[2]?.subdomain).toBe("alpha");
+			expect(state.zendeskTabs[3]?.subdomain).toBe("beta");
 		});
 	});
 

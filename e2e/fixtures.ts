@@ -38,7 +38,13 @@ export const test = base.extend<{
 		}
 		// Extract extension ID from service worker URL
 		// Format: chrome-extension://[extension-id]/background.js
-		const extensionId = serviceWorker.url().split("/")[2];
+		const urlParts = serviceWorker.url().split("/");
+		const extensionId = urlParts[2];
+		if (!extensionId) {
+			throw new Error(
+				`Failed to extract extension ID from service worker URL: ${serviceWorker.url()}`,
+			);
+		}
 		await use(extensionId);
 	},
 });

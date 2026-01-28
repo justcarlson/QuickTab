@@ -25,7 +25,7 @@ QuickTab keeps your workspace tidy. When you click a Zendesk /agent link from an
 QuickTab runs entirely in your browser. No data is sent anywhere. No analytics. No tracking. See our privacy policy for details.
 
 **Open Source:**
-QuickTab is open source. View the code at github.com/zendesklabs/QuickTab
+QuickTab is open source. View the code at github.com/justcarlson/QuickTab
 
 ## Screenshots
 
@@ -66,7 +66,7 @@ QuickTab routes Zendesk agent links to existing tabs instead of opening new ones
 - Does not use cookies for tracking
 
 ### Privacy Policy URL
-https://github.com/zendesklabs/QuickTab/blob/master/PRIVACY.md
+https://github.com/justcarlson/QuickTab/blob/master/PRIVACY.md
 
 ## Verification Checklist
 
