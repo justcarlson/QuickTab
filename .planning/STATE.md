@@ -99,7 +99,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-None yet.
+1. **Push master commits and clean up deleted debug files** — master 4 commits ahead, debug files deleted but unstaged
 
 ### Blockers/Concerns
 
