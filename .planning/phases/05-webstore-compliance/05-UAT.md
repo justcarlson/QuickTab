@@ -1,5 +1,5 @@
 ---
-status: complete
+status: resolved
 phase: 05-webstore-compliance
 source: [05-01-SUMMARY.md, 05-02-SUMMARY.md, 05-03-SUMMARY.md]
 started: 2026-01-27T00:00:00Z
@@ -56,21 +56,19 @@ skipped: 1
 ## Gaps
 
 - truth: "README permissions table includes all current permissions"
-  status: failed
+  status: resolved
   reason: "User reported: this needs to be updated, but yes it is there. see scripting."
   severity: minor
   test: 4
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Scripting permission added in v0.12.2 post-Phase 5, docs not updated"
+  fix: "Added scripting permission to README and PRIVACY.md tables"
+  commit: "58a6d80"
 
 - truth: "What We Don't Request section accurately reflects current permission scope"
-  status: failed
+  status: resolved
   reason: "User reported: scripting does involve browser history, i believe"
   severity: minor
   test: 5
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Statement 'No access to read page content' contradicted by scripting permission"
+  fix: "Updated section to clarify scripting scope (zendesk.com only, navigation only)"
+  commit: "58a6d80"
