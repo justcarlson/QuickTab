@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 
 ## Current Position
 
-Phase: 7 of 8 (Version Sync)
-Plan: 1 of 1 (Complete)
-Status: Phase 7 verified ✓
-Last activity: 2026-01-27 — Phase 7 verified
+Phase: 8 of 8 (Chrome Web Store)
+Plan: 1 of 2 (Submission Preparation - Complete)
+Status: In progress
+Last activity: 2026-01-28 — Completed 08-01-PLAN.md
 
-Progress: ████████████░░░░░░░░░░░░ v1.0.1 50% (1/2 phases)
+Progress: ██████████████████░░░░░░ v1.0.1 75% (1.5/2 phases)
 
 ## v1.0.1 Summary
 
 | Phase | Name | Plans | Status |
 |-------|------|-------|--------|
 | 7 | Version Sync | 1/1 | Complete |
-| 8 | Publish | 0/? | Pending |
+| 8 | Chrome Web Store | 1/2 | In Progress |
 
 ## v1.0 Summary
 
@@ -57,6 +57,10 @@ v1.0.1 decisions:
 - Set version to 1.0.1 (patch increment from v1.0)
 - Use last-release-sha to scope release-please changelog to post-v1.0 commits
 
+Phase 8 decisions:
+- Privacy policy hosted at raw GitHub URL (verified accessible)
+- Store listing summary: 118 characters (under 132 limit)
+
 ### Pending Todos
 
 None
@@ -67,13 +71,13 @@ None
 
 ## Session Continuity
 
-Last session: 2026-01-27
-Stopped at: Completed 07-01-PLAN.md
+Last session: 2026-01-28
+Stopped at: Completed 08-01-PLAN.md
 Resume file: None
 
 ## Next Steps
 
-Plan and execute Phase 8: Publish
+Execute Plan 02: Submit to Chrome Web Store (human submission checkpoint)
 
 ---
-*Updated: 2026-01-27 after Phase 7 verification*
+*Updated: 2026-01-28 after completing 08-01-PLAN.md*
