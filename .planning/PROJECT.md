@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A Chrome extension for Zendesk users that intercepts zendesk.com navigation and routes it to existing agent tabs instead of opening new ones. Originally abandoned by maintainers and removed from Chrome Web Store — now being modernized for security, maintainability, and republishing.
+A Chrome extension for Zendesk users that intercepts zendesk.com navigation and routes it to existing agent tabs instead of opening new ones. Modernized from legacy jQuery/Grunt codebase to TypeScript/WXT with comprehensive testing and CI/CD automation.
 
 ## Core Value
 
@@ -12,78 +12,88 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 
 ### Validated
 
-- ✓ Intercept zendesk.com/agent navigation events — existing
-- ✓ Route intercepted URLs to existing Zendesk agent tabs — existing
-- ✓ URL pattern matching (Lotus routes, ticket routes, restricted routes) — existing
-- ✓ User-configurable detection modes (all URLs, ticket URLs, disabled) — existing
-- ✓ Popup UI for settings and status display — existing
-- ✓ Welcome page on first install — existing
-- ✓ Icon state reflects current detection mode — existing
-- ✓ Settings persist via Chrome storage — existing
-- ✓ i18n support with localized strings — existing
+- **v1.0** — Intercept zendesk.com/agent navigation events
+- **v1.0** — Route intercepted URLs to existing Zendesk agent tabs
+- **v1.0** — URL pattern matching (Lotus routes, ticket routes, restricted routes)
+- **v1.0** — User-configurable detection modes (all URLs, ticket URLs, disabled)
+- **v1.0** — Popup UI for settings and status display
+- **v1.0** — Welcome page on first install
+- **v1.0** — Icon state reflects current detection mode
+- **v1.0** — Settings persist via Chrome storage
+- **v1.0** — i18n support with localized strings
+- **v1.0** — WXT + TypeScript + Vite build system
+- **v1.0** — Biome linting with pre-commit hooks
+- **v1.0** — Vitest unit tests (100+ tests, 98% coverage)
+- **v1.0** — Playwright E2E tests for popup
+- **v1.0** — GitHub Actions CI pipeline
+- **v1.0** — Release-please versioning and changelog
+- **v1.0** — Chrome Web Store compliance package
 
 ### Active
 
-- [ ] Migrate from jQuery 1.6.1 to vanilla JavaScript
-- [ ] Replace Handlebars templates with plain HTML + JS
-- [ ] Convert ES5 codebase to TypeScript
-- [ ] Replace Grunt + Webpack 1.x with Vite
-- [ ] Add unit test coverage with Vitest
-- [ ] Add E2E browser tests with Playwright
-- [ ] Set up GitHub Actions CI pipeline (lint, test, build, security scan)
-- [ ] Ensure full Chrome Web Store policy compliance
-- [ ] Create release workflow with versioning and artifacts
-- [ ] Document codebase for maintainer handoff
+(No active requirements — next milestone not yet defined)
 
 ### Out of Scope
 
-- New features beyond bug fixes — this is a technical modernization
+- New features beyond bug fixes — v1 was technical modernization
 - Rebrand or visual refresh — keeping QuickTab identity
 - Automated Chrome Web Store publishing — manual upload for now
 - Support for non-Chrome browsers — Chrome/Chromium only
+- Analytics/telemetry — privacy-focused extension
+- React/Vue for popup — vanilla TypeScript sufficient
 
 ## Context
 
-**Origin:** Forked from abandoned extension removed from Chrome Web Store. Original functionality intact but built on outdated dependencies with known vulnerabilities.
+**Current State (v1.0 shipped):**
+- WXT + TypeScript + Vite build system
+- Biome linting with pre-commit hooks
+- Storage-first service worker architecture (MV3 compliant)
+- Vanilla TypeScript popup and welcome page
+- 100+ unit tests (98% coverage), Playwright E2E
+- GitHub Actions CI with lint, test, build, E2E
+- Release-please for versioning and changelog
+- Chrome Web Store compliance ready
 
-**Current State:**
-- jQuery 1.6.1 (2011, multiple CVEs)
-- Handlebars 2.0.0
-- ES5 JavaScript throughout
-- Grunt 1.6.1 + Webpack 1.x build system
-- No tests, no CI/CD, no security scanning
-- Already partially migrated to Manifest V3
+**Tech Stack:**
+- WXT 0.19.x (extension framework)
+- TypeScript 5.9+ (ES2022 target)
+- Vite (bundler)
+- Biome 2.3.x (linter/formatter)
+- Vitest 3.2.x (unit testing)
+- Playwright (E2E testing)
+- GitHub Actions (CI/CD)
+- Release-please (versioning)
 
-**Target State:**
-- Zero jQuery — vanilla TypeScript
-- No templating runtime — plain HTML
-- Modern ES2022+ TypeScript
-- Vite build system
-- Vitest + Playwright test coverage
-- GitHub Actions CI with security scanning
-- Chrome Web Store compliant and published
+**Code Size:** 2,509 lines TypeScript
 
-**Publishing:** Chrome developer account ready. Manual upload workflow until automation needs justify investment.
+**Known Tech Debt:**
+- Type safety issue in background.ts line 124 (build succeeds)
+- Navigation interception needs human verification with Zendesk access
+- Orphaned exports in url-matching.ts and tabs.ts (test-only)
+- E2E tests cover popup only (navigation via unit tests)
 
 ## Constraints
 
-- **Manifest Version**: Must be Manifest V3 compliant — V2 deprecated
-- **Browser Support**: Chrome/Chromium only — no Firefox/Safari/Edge
-- **Scope**: Technical modernization — no new end-user features
-- **Dependencies**: Minimize runtime dependencies — prefer vanilla implementations
-- **Testing**: Must have CI gates before merging — no untested code to main
+- **Manifest Version**: Must be Manifest V3 compliant
+- **Browser Support**: Chrome/Chromium only
+- **Scope**: Bug fixes and maintenance for v1.x
+- **Dependencies**: Minimal runtime dependencies
+- **Testing**: CI gates before merging
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Remove jQuery entirely | Minimal DOM manipulation, security vulnerabilities, unnecessary weight | — Pending |
-| Remove Handlebars | Simple UI doesn't justify templating runtime, reduces dependencies | — Pending |
-| TypeScript over JavaScript | Type safety, better maintainability, IDE support, catches bugs early | — Pending |
-| Vite over alternatives | Fast, modern, excellent Chrome extension ecosystem support | — Pending |
-| Vitest + Playwright | Modern test stack, fast unit tests, real browser E2E | — Pending |
-| GitHub Actions | Free for public repos, good ecosystem, team familiarity | — Pending |
-| Manual Web Store publishing | Focus on codebase quality first, automation later if needed | — Pending |
+| Remove jQuery entirely | Security vulnerabilities, unnecessary weight | Good |
+| Remove Handlebars | Simple UI doesn't justify templating runtime | Good |
+| TypeScript over JavaScript | Type safety, maintainability | Good |
+| WXT over alternatives | Active maintenance, excellent Vite integration | Good |
+| Biome over ESLint+Prettier | 10-25x faster, single config | Good |
+| Storage-first architecture | MV3 state loss mitigation | Good |
+| Vitest + Playwright | Fast unit tests, real browser E2E | Good |
+| GitHub Actions | Free for public repos, good ecosystem | Good |
+| Release-please | Automated versioning, changelog from commits | Good |
+| Manual Web Store publishing | Focus on code quality first | Pending |
 
 ---
-*Last updated: 2026-01-25 after initialization*
+*Last updated: 2026-01-27 after v1.0 milestone*
