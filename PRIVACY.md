@@ -46,6 +46,7 @@ QuickTab requests the following permissions. Here's why each one is needed:
 | `webNavigation` | Lets extensions detect when you navigate to a URL | Detects navigation to Zendesk ticket URLs so we can redirect to existing tabs |
 | `tabs` | Lets extensions query and interact with browser tabs | Finds existing Zendesk agent tabs and focuses them instead of opening new ones |
 | `storage` | Lets extensions save small amounts of data locally | Remembers your detection mode preference between browser sessions |
+| `scripting` | Lets extensions run scripts on specific pages | Sends navigation messages to Zendesk's single-page app (avoids full page reloads) |
 | `host_permissions` (zendesk.com) | Limits where the extension can operate | Ensures QuickTab only activates on Zendesk domains—not on other websites |
 
 ---
