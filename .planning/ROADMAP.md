@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: UI Migration** - Popup and welcome page to vanilla TypeScript
 - [x] **Phase 4: Testing & Quality** - Unit tests, E2E tests, and coverage
 - [x] **Phase 5: Web Store Compliance** - Privacy policy, permissions audit, store metadata
-- [ ] **Phase 6: CI/CD & Automation** - GitHub Actions, versioning, changelog
+- [x] **Phase 6: CI/CD & Automation** - GitHub Actions, versioning, changelog
 
 ## Phase Details
 
@@ -144,8 +144,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Configure release-please for automated versioning and changelog
-- [ ] 06-02-PLAN.md — Enhance release workflow with CI gate and add commit conventions
+- [x] 06-01-PLAN.md — Configure release-please for automated versioning and changelog
+- [x] 06-02-PLAN.md — Enhance release workflow with CI gate and add commit conventions
 
 ## Progress
 
@@ -161,7 +161,7 @@ Each phase completes with a PR merge to main and a release tag.
 | 3. UI Migration | 4/4 | Complete | 2026-01-25 |
 | 4. Testing & Quality | 6/6 | Complete | 2026-01-25 |
 | 5. Web Store Compliance | 3/3 | Complete | 2026-01-27 |
-| 6. CI/CD & Automation | 0/2 | Not started | - |
+| 6. CI/CD & Automation | 2/2 | Complete | 2026-01-27 |
 
 ---
 *Roadmap created: 2026-01-25*
