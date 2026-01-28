@@ -31,7 +31,11 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 
 ### Active
 
-(No active requirements — next milestone not yet defined)
+**v1.0.1 — Release & Publish**
+- Fix version sync between package.json and GitHub releases
+- Ensure release-please workflow functions correctly
+- Submit to Chrome Web Store
+- Handle review feedback and iterate until approved
 
 ### Out of Scope
 
@@ -71,6 +75,7 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 - Navigation interception needs human verification with Zendesk access
 - Orphaned exports in url-matching.ts and tabs.ts (test-only)
 - E2E tests cover popup only (navigation via unit tests)
+- **Version mismatch:** package.json at 0.12.3, GitHub release at v1.0 (v1.0.1 scope)
 
 ## Constraints
 
@@ -96,4 +101,4 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 | Manual Web Store publishing | Focus on code quality first | Pending |
 
 ---
-*Last updated: 2026-01-27 after v1.0 milestone*
+*Last updated: 2026-01-27 after v1.0.1 milestone started*

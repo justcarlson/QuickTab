@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** v1.0 shipped — planning next milestone
+**Current focus:** v1.0.1 Release & Publish
 
 ## Current Position
 
-Phase: Not started (v1.0 milestone complete)
-Plan: Not started
-Status: Ready to plan next milestone
-Last activity: 2026-01-27 — v1.0 milestone archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-27 — Milestone v1.0.1 started
 
-Progress: [████████████████████████] v1.0 complete
+Progress: ░░░░░░░░░░░░░░░░░░░░░░░░ v1.0.1 starting
 
 ## v1.0 Summary
 
@@ -52,7 +52,7 @@ None — milestone complete, backlog cleared.
 
 ### Blockers/Concerns
 
-None.
+- Version mismatch: package.json (0.12.3) vs GitHub release (v1.0) — to fix in v1.0.1
 
 ## Session Continuity
 
@@ -62,7 +62,7 @@ Resume file: None
 
 ## Next Steps
 
-Start next milestone with `/gsd:new-milestone` when ready for new work.
+Define requirements and create roadmap for v1.0.1.
 
 ---
-*Updated: 2026-01-27 after v1.0 milestone completion*
+*Updated: 2026-01-27 after v1.0.1 milestone started*
