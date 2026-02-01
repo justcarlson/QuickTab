@@ -15,9 +15,9 @@ Requirements for Release & Publish milestone.
 
 ### Chrome Web Store
 
-- [ ] **CWS-01**: Extension submitted to Chrome Web Store
-- [ ] **CWS-02**: Review feedback addressed (if any rejection/revision requests)
-- [ ] **CWS-03**: Extension published and publicly available
+- [x] **CWS-01**: Extension submitted to Chrome Web Store
+- [x] **CWS-02**: Review feedback addressed (if any rejection/revision requests)
+- [x] **CWS-03**: Extension published and publicly available
 
 ## Future Requirements
 
@@ -42,9 +42,9 @@ Explicitly excluded for v1.0.1.
 | VER-01 | 7 | Complete |
 | VER-02 | 7 | Complete |
 | VER-03 | 7 | Complete |
-| CWS-01 | 8 | Pending |
-| CWS-02 | 8 | Pending |
-| CWS-03 | 8 | Pending |
+| CWS-01 | 8 | Complete |
+| CWS-02 | 8 | Complete |
+| CWS-03 | 8 | Complete |
 
 **Coverage:**
 - v1.0.1 requirements: 6 total
@@ -53,4 +53,4 @@ Explicitly excluded for v1.0.1.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 after Phase 7 completion*
+*Last updated: 2026-01-31 after Phase 8 completion (milestone complete)*
