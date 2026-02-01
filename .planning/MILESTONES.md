@@ -1,5 +1,35 @@
 # Project Milestones: QuickTab
 
+## v1.0.1 Release & Publish (Shipped: 2026-01-31)
+
+**Delivered:** Chrome Web Store publication with version alignment — QuickTab is now publicly installable
+
+**Phases completed:** 7-8 (3 plans total)
+
+**Key accomplishments:**
+- Fixed version mismatch: Updated from 0.12.3 to 1.0.1 across package.json and release-please config
+- Configured release-please: Added last-release-sha to scope changelog to post-v1.0 commits
+- Created store listing: Complete Chrome Web Store content with permission justifications
+- Submitted to Chrome Web Store: Extension passed review on first submission
+- Published publicly: Extension ID nmdffjdpeginhmabpeikjimggmnoojjp available for installation
+
+**Stats:**
+- 23 files created/modified
+- +2,257 / -658 lines changed
+- 2 phases, 3 plans
+- 4 days from v1.0 to public availability (2026-01-27 to 2026-01-31)
+
+**Git range:** `v1.0` → `docs(08): complete Chrome Web Store phase`
+
+**Chrome Web Store:**
+- Extension ID: `nmdffjdpeginhmabpeikjimggmnoojjp`
+- Category: Workflow & Planning
+- Status: Published
+
+**What's next:** Monitor user feedback and plan next feature work
+
+---
+
 ## v1.0 Modernization (Shipped: 2026-01-27)
 
 **Delivered:** Complete technical modernization from legacy jQuery/Grunt to TypeScript/WXT with comprehensive testing and CI/CD automation

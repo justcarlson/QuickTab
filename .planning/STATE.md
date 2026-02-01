@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-27)
+See: .planning/PROJECT.md (updated 2026-01-31)
 
 **Core value:** Zendesk links open in existing agent tabs, not new ones
-**Current focus:** v1.0.1 Release & Publish — COMPLETE
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 8 of 8 (Chrome Web Store)
-Plan: 2 of 2 (Complete)
-Status: Milestone complete ✓
-Last activity: 2026-01-31 — Extension published on Chrome Web Store
+Phase: Ready for next milestone
+Plan: Not started
+Status: Milestone v1.0.1 complete ✓
+Last activity: 2026-01-31 — v1.0.1 archived
 
-Progress: ████████████████████████ v1.0.1 100% (2/2 phases)
+Progress: ████████████████████████ v1.0.1 100% SHIPPED
 
 ## v1.0.1 Summary
 
@@ -32,6 +32,11 @@ Progress: ███████████████████████�
 - Version: 1.0.1
 - Category: Workflow & Planning
 - Status: Published
+
+**Archived to:**
+- `.planning/milestones/v1.0.1-ROADMAP.md`
+- `.planning/milestones/v1.0.1-REQUIREMENTS.md`
+- `.planning/milestones/v1.0.1-MILESTONE-AUDIT.md`
 
 ## v1.0 Summary
 
@@ -57,7 +62,9 @@ Progress: ███████████████████████�
 
 ### Decisions
 
-Key decisions logged in PROJECT.md. Major decisions from v1.0:
+Key decisions logged in PROJECT.md.
+
+v1.0 decisions:
 - WXT framework (active maintenance, Vite integration)
 - Storage-first architecture (MV3 compliance)
 - Biome (10-25x faster than ESLint+Prettier)
@@ -80,15 +87,15 @@ None
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Milestone complete — extension published
+Stopped at: Milestone v1.0.1 complete and archived
 Resume file: None
 
 ## Next Steps
 
-v1.0.1 milestone complete. Options:
-- `/gsd:audit-milestone` — verify requirements, cross-phase integration
-- `/gsd:complete-milestone` — archive milestone and prepare for next version
-- Start new feature work
+Start next milestone with `/gsd:new-milestone` which includes:
+- PROJECT.md evolution review
+- Requirements definition for new scope
+- Roadmap creation with phase breakdown
 
 ---
-*Updated: 2026-01-31 after Phase 8 completion (milestone complete)*
+*Updated: 2026-01-31 after v1.0.1 milestone completion*

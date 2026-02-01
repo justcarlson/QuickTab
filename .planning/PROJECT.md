@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A Chrome extension for Zendesk users that intercepts zendesk.com navigation and routes it to existing agent tabs instead of opening new ones. Modernized from legacy jQuery/Grunt codebase to TypeScript/WXT with comprehensive testing and CI/CD automation.
+A Chrome extension for Zendesk users that intercepts zendesk.com navigation and routes it to existing agent tabs instead of opening new ones. Published on Chrome Web Store, modernized from legacy jQuery/Grunt to TypeScript/WXT with comprehensive testing and CI/CD automation.
 
 ## Core Value
 
@@ -28,14 +28,14 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 - **v1.0** — GitHub Actions CI pipeline
 - **v1.0** — Release-please versioning and changelog
 - **v1.0** — Chrome Web Store compliance package
+- ✓ **v1.0.1** — Version sync between package.json and GitHub releases
+- ✓ **v1.0.1** — Release-please configured with last-release-sha for changelog scoping
+- ✓ **v1.0.1** — Extension submitted and approved on Chrome Web Store
+- ✓ **v1.0.1** — Extension publicly available (ID: nmdffjdpeginhmabpeikjimggmnoojjp)
 
 ### Active
 
-**v1.0.1 — Release & Publish**
-- Fix version sync between package.json and GitHub releases
-- Ensure release-please workflow functions correctly
-- Submit to Chrome Web Store
-- Handle review feedback and iterate until approved
+(None — waiting for user feedback and next milestone planning)
 
 ### Out of Scope
 
@@ -48,7 +48,8 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 
 ## Context
 
-**Current State (v1.0 shipped):**
+**Current State (v1.0.1 shipped):**
+- Published on Chrome Web Store (ID: nmdffjdpeginhmabpeikjimggmnoojjp)
 - WXT + TypeScript + Vite build system
 - Biome linting with pre-commit hooks
 - Storage-first service worker architecture (MV3 compliant)
@@ -56,7 +57,6 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 - 100+ unit tests (98% coverage), Playwright E2E
 - GitHub Actions CI with lint, test, build, E2E
 - Release-please for versioning and changelog
-- Chrome Web Store compliance ready
 
 **Tech Stack:**
 - WXT 0.19.x (extension framework)
@@ -71,11 +71,11 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 **Code Size:** 2,509 lines TypeScript
 
 **Known Tech Debt:**
-- Type safety issue in background.ts line 124 (build succeeds)
+- Type safety issue in background.ts line 124 (build succeeds but tsc --noEmit fails)
 - Navigation interception needs human verification with Zendesk access
 - Orphaned exports in url-matching.ts and tabs.ts (test-only)
 - E2E tests cover popup only (navigation via unit tests)
-- **Version mismatch:** package.json at 0.12.3, GitHub release at v1.0 (v1.0.1 scope)
+- last-release-sha in release-please-config.json should be removed after next release PR merges
 
 ## Constraints
 
@@ -98,7 +98,9 @@ Zendesk links open in existing agent tabs, not new ones. This single behavior mu
 | Vitest + Playwright | Fast unit tests, real browser E2E | Good |
 | GitHub Actions | Free for public repos, good ecosystem | Good |
 | Release-please | Automated versioning, changelog from commits | Good |
-| Manual Web Store publishing | Focus on code quality first | Pending |
+| Manual Web Store publishing | Focus on code quality first | ✓ Good |
+| Raw GitHub URL for privacy policy | Stable, no hosting cost | ✓ Good |
+| Workflow & Planning category | Best fit for agent workflow tool | ✓ Good |
 
 ---
-*Last updated: 2026-01-27 after v1.0.1 milestone started*
+*Last updated: 2026-01-31 after v1.0.1 milestone*
