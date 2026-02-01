@@ -2,7 +2,7 @@
 
 Well-behaved browser tabs for Zendesk agents.
 
-![QuickTab hero](app/images/pages/welcome/hero-v2.png)
+![QuickTab hero](public/images/pages/welcome/hero-v2.png)
 
 QuickTab keeps Zendesk `/agent` links in one calm, focused tab. Click any agent link from anywhere and QuickTab routes it to the Zendesk tab you already have open.
 
@@ -17,7 +17,7 @@ QuickTab keeps Zendesk `/agent` links in one calm, focused tab. Click any agent 
 
 ### Chrome Web Store
 
-Coming soon — submission in progress.
+[**Install from Chrome Web Store**](https://chromewebstore.google.com/detail/quicktab/nmdffjdpeginhmabpeikjimggmnoojjp)
 
 ## Why teams use it
 
@@ -84,13 +84,17 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
 | Core functionality | ✅ Stable |
 | Chrome support | ✅ Supported |
 | Firefox support | ❌ Not planned |
-| Chrome Web Store | 🔄 Submission pending |
+| Chrome Web Store | ✅ [Published](https://chromewebstore.google.com/detail/quicktab/nmdffjdpeginhmabpeikjimggmnoojjp) |
 
 ## Links
 
 - **Releases:** https://github.com/justcarlson/QuickTab/releases
 - **Issues:** https://github.com/justcarlson/QuickTab/issues
 - **Original repo (archived):** https://github.com/zendesklabs/QuickTab
+
+## Special Thanks
+
+- [Zach Vivier](https://github.com/zachvier) — for pushing me to ship!
 
 ---
 
