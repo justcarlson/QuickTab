@@ -1,6 +1,6 @@
 {
 	"name": "QuickTab",
-	"version": "0.12.3",
+	"version": "1.0.1",
 	"description": "Well behaved ticket tabs for Zendesk agents",
 	"type": "module",
 	"scripts": {

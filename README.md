@@ -45,13 +45,14 @@ QuickTab requests minimal permissions to function:
 | **Tab access** | To find your existing Zendesk tabs and focus them when routing |
 | **Storage** | To save your detection mode preference between browser sessions |
 | **Web navigation** | To intercept link clicks before they open new tabs |
+| **Scripting** | To send navigation messages to Zendesk's single-page app (avoids page reloads) |
 
 ### What We Don't Request
 
-- No access to other websites
+- No access to other websites (scripting limited to zendesk.com for navigation only)
 - No access to your browsing history
-- No access to read page content
 - No access to cookies or passwords
+- No data collection or analytics
 
 For complete details, see our [Privacy Policy](PRIVACY.md).
 
